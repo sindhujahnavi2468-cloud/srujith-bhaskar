@@ -567,12 +567,16 @@ async function loadFromJSONBin() {
     if (record.covers && typeof record.covers === 'object') {
       galleryData.covers = record.covers;
     }
-    if (record.quotePricing && typeof record.quotePricing === 'object') {
+   if (record.quotePricing && typeof record.quotePricing === 'object') {
       galleryData.quotePricing = record.quotePricing;
+    }
+    if (record.hero && typeof record.hero === 'object') {
+      galleryData.hero = record.hero;
     }
 
     renderAllGalleries();
     renderVideoSlots();
+    renderHeroSlot();
     renderCoversGrid();
     renderPricingTab();
     renderQuotesTab();
