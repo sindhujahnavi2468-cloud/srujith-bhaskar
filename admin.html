@@ -3,453 +3,1143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Srujith Bhaskar Photography</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Srujith Bhaskar Photography — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --blush-soft:#f6eeef; --cream:#f9f5f0; --white:#ffffff;
-  --maroon:#5c1730; --rose:#7f3049; --rose-pale:rgba(92,23,48,0.06);
-  --gold:#ab8850; --gold-light:#cfb37e; --ink:#241318; --muted:#8a7580;
-  --border:rgba(92,23,48,0.14);
-  --f-heading:'Poppins',sans-serif; --f-body:'Jost',sans-serif;
-  --ok:#2f7d4f; --err:#b0243c;
+  --ink:#241318;--white:#ffffff;--off:#faf7f3;--maroon:#5c1730;--rose:#7f3049;
+  --gold:#ab8850;--gold-light:#cfb37e;--muted:#8a7580;--border:rgba(92,23,48,0.12);--light:#f6eeef;
+  --danger:#c0392b;--success:#27ae60;
+  --f-script:'Poppins',sans-serif;--f-body:'Jost',sans-serif;--f-ed:'Cormorant Garamond',serif;
 }
-body{background:var(--cream);color:var(--ink);font-family:var(--f-body);min-height:100vh;}
-header{background:var(--maroon);color:#fff;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-header h1{font-family:var(--f-heading);font-weight:800;font-size:20px;letter-spacing:.01em;}
-header h1 span{color:var(--gold-light);}
-.conn-status{font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;background:rgba(255,255,255,.08);}
-.conn-status.ok{color:#bfe8cc;background:rgba(47,125,79,.25);}
-.conn-status.bad{color:#f3c1cc;background:rgba(176,36,60,.25);}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height:100vh}
 
-.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 100px;}
+/* LOGIN */
+#login-screen{position:fixed;inset:0;z-index:9999;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--white);padding:56px 48px;max-width:400px;width:90%;border-top:3px solid var(--gold)}
+.login-logo{font-family:var(--f-script);font-weight:800;font-size:26px;color:var(--maroon)}
+.login-logo span{color:var(--gold)}
+.login-sub{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-bottom:40px;margin-top:4px}
+.login-label{font-size:8.5px;letter-spacing:0.35em;text-transform:uppercase;color:var(--rose);font-weight:500;display:block;margin-bottom:8px}
+.login-input{width:100%;border:1px solid var(--border);background:var(--off);padding:12px 16px;font-family:var(--f-body);font-size:15px;color:var(--ink);outline:none;transition:border-color 0.3s;margin-bottom:24px;border-radius:0}
+.login-input:focus{border-color:var(--maroon)}
+.login-btn{width:100%;background:var(--maroon);color:#fff;border:none;padding:14px;font-family:var(--f-body);font-size:10px;letter-spacing:0.3em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all 0.3s}
+.login-btn:hover{background:var(--rose)}
+.login-error{font-size:12px;color:var(--danger);margin-top:12px;display:none;text-align:center}
 
-.setup-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:26px 28px;margin-bottom:32px;}
-.setup-card h2{font-family:var(--f-heading);font-weight:800;font-size:18px;color:var(--maroon);margin-bottom:6px;}
-.setup-card p{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
-.setup-row{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;}
-.field{display:flex;flex-direction:column;gap:6px;}
-.field label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600;}
-.field input{padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--f-body);font-size:14px;background:var(--cream);outline:none;}
-.field input:focus{border-color:var(--gold);background:var(--white);}
-.btn{font-family:var(--f-body);font-size:13px;font-weight:600;letter-spacing:.03em;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;transition:.25s;white-space:nowrap;}
-.btn-primary{background:var(--maroon);color:#fff;}
-.btn-primary:hover{background:var(--rose);}
-.btn-ghost{background:var(--rose-pale);color:var(--maroon);border:1px solid var(--border);}
-.btn-ghost:hover{background:var(--blush-soft);}
-.btn-sm{padding:8px 14px;font-size:12px;}
-.btn:disabled{opacity:.5;cursor:not-allowed;}
+/* ADMIN LAYOUT */
+#admin-panel{display:none}
+.admin-nav{position:sticky;top:0;z-index:100;background:var(--ink);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(171,136,80,0.25)}
+.admin-nav-logo{font-family:var(--f-script);font-weight:800;font-size:19px;color:#fff}
+.admin-nav-logo span{color:var(--gold-light)}
+.admin-nav-right{display:flex;align-items:center;gap:20px}
+.admin-tag{font-size:8.5px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+.admin-logout{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-light);background:none;border:1px solid rgba(171,136,80,0.35);padding:6px 14px;cursor:pointer;transition:all 0.3s;font-family:var(--f-body)}
+.admin-logout:hover{background:rgba(171,136,80,0.12)}
+.admin-body{max-width:1300px;margin:0 auto;padding:40px 40px 100px}
 
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0;}
-.tab-btn{background:none;border:none;padding:12px 18px;font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;}
-.tab-btn.active{color:var(--maroon);font-weight:600;border-bottom-color:var(--gold);}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
+.admin-header{margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.admin-header h1{font-family:var(--f-script);font-weight:800;font-size:34px;color:var(--maroon);margin-bottom:6px}
+.admin-header p{font-size:13px;color:var(--muted)}
 
-.section-block{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px 26px;margin-bottom:20px;}
-.section-block h3{font-family:var(--f-heading);font-weight:800;font-size:16px;color:var(--maroon);margin-bottom:4px;}
-.section-block .sub{font-size:12.5px;color:var(--muted);margin-bottom:16px;}
-.upload-row{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
-.file-label{display:inline-flex;align-items:center;gap:8px;background:var(--rose-pale);border:1px dashed var(--border);color:var(--maroon);padding:10px 18px;border-radius:8px;font-size:13px;cursor:pointer;transition:.2s;}
-.file-label:hover{background:var(--blush-soft);}
-.file-label input{display:none;}
-.upload-status{font-size:12px;color:var(--muted);}
-.upload-status.ok{color:var(--ok);}
-.upload-status.err{color:var(--err);}
+.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:36px}
+.stat-cell{background:var(--white);padding:20px 24px}
+.stat-n{font-family:var(--f-script);font-weight:800;font-size:30px;color:var(--maroon)}
+.stat-label{font-size:8.5px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 
-.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;}
-.thumb{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--blush-soft);border:1px solid var(--border);}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.thumb .del{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(20,8,14,.65);color:#fff;border:none;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.thumb .del:hover{background:var(--err);}
-.thumb-empty{grid-column:1/-1;font-size:12.5px;color:var(--muted);padding:18px 0;text-align:center;}
+.admin-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:36px;flex-wrap:wrap}
+.tab-btn{font-size:9.5px;letter-spacing:0.28em;text-transform:uppercase;font-weight:500;padding:12px 18px;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.25s;font-family:var(--f-body);position:relative}
+.tab-btn:hover{color:var(--maroon)}
+.tab-btn.active{color:var(--maroon);border-bottom-color:var(--maroon)}
+.tab-btn .notif-badge{position:absolute;top:8px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--rose)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.section-label{font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:20px;display:block}
 
-.cover-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;}
-.cover-item{text-align:center;}
-.cover-item .cover-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px;}
-.cover-preview{aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:var(--blush-soft);border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;justify-content:center;}
-.cover-preview img{width:100%;height:100%;object-fit:cover;}
-.cover-preview .none{font-size:11px;color:var(--muted);}
+/* UPLOAD */
+.upload-zone{border:2px dashed rgba(92,23,48,0.2);background:var(--white);padding:48px 32px;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:28px;position:relative}
+.upload-zone:hover,.upload-zone.drag-over{border-color:var(--maroon);background:rgba(92,23,48,0.03)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:28px;margin-bottom:12px;color:var(--muted);opacity:0.5}
+.upload-title{font-family:var(--f-script);font-weight:800;font-size:19px;color:var(--maroon);margin-bottom:6px}
+.upload-hint{font-size:12px;color:var(--muted);line-height:1.6}
+.upload-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:28px}
+.cat-select{border:1px solid var(--border);background:var(--white);padding:10px 14px;font-family:var(--f-body);font-size:13px;color:var(--ink);outline:none;cursor:pointer;min-width:220px;border-radius:0}
+.cat-select:focus{border-color:var(--maroon)}
+.upload-btn{background:var(--maroon);color:#fff;border:none;padding:11px 28px;font-family:var(--f-body);font-size:9.5px;letter-spacing:0.28em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all 0.3s}
+.upload-btn:hover{background:var(--rose)}
+.upload-btn:disabled{background:var(--muted);cursor:not-allowed}
 
-.video-item{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);}
-.video-item:last-child{border-bottom:none;}
-.video-item video{width:70px;height:100px;object-fit:cover;border-radius:6px;background:#000;}
-.video-item .vi-body{flex:1;}
-.video-item input{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:6px;background:var(--cream);}
-.video-item .vi-actions{display:flex;gap:8px;}
+.upload-queue{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.queue-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--white);border:1px solid var(--border)}
+.queue-thumb{width:44px;height:44px;object-fit:cover;flex-shrink:0;background:var(--light)}
+.queue-name{font-size:12px;color:var(--ink);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.queue-status{font-size:10px;letter-spacing:0.15em;font-weight:500}
+.queue-status.pending{color:var(--muted)}
+.queue-status.uploading{color:var(--gold)}
+.queue-status.done{color:var(--success)}
+.queue-status.error{color:var(--danger)}
+.queue-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px;transition:color 0.2s}
+.queue-remove:hover{color:var(--danger)}
 
-.toast{position:fixed;bottom:24px;right:24px;background:var(--maroon);color:#fff;padding:12px 22px;border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:999;}
-.toast.show{opacity:1;transform:translateY(0);}
-.toast.err{background:var(--err);}
+.cap-warning{background:rgba(200,92,26,0.08);border:1px solid rgba(200,92,26,0.25);padding:12px 18px;margin-bottom:20px;font-size:12px;color:#a1531b;line-height:1.6;display:none}
+.cap-warning.visible{display:block}
 
-.locked-note{font-size:13px;color:var(--muted);padding:40px 0;text-align:center;}
+.gallery-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.gallery-section-title{font-family:var(--f-script);font-weight:800;font-size:21px;color:var(--maroon)}
+.gallery-count{font-size:11px;color:var(--muted)}
+.gallery-cap{font-size:10px;letter-spacing:0.2em;color:var(--rose);font-weight:500}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
+.photo-item{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--light)}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:filter 0.3s}
+.photo-item:hover img{filter:brightness(0.55)}
+.photo-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity 0.25s}
+.photo-item:hover .photo-overlay{opacity:1}
+.photo-del-btn{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--danger);color:#fff;transition:all 0.2s}
+.photo-del-btn:hover{background:#922b21;transform:scale(1.1)}
+.empty-cat{padding:48px 24px;text-align:center;border:1px dashed rgba(92,23,48,0.15);color:var(--muted);font-size:13px;line-height:1.7}
+
+/* COVERS */
+.cover-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:28px}
+.cover-item{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--maroon),var(--rose));border:2px solid transparent;transition:border-color 0.2s}
+.cover-item.is-current{border-color:var(--gold)}
+.cover-item img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;transition:filter 0.3s}
+.cover-item .cover-placeholder{width:100%;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:12px}
+.cover-item:hover img{filter:brightness(0.55)}
+.cover-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;opacity:0;transition:opacity 0.25s}
+.cover-item:hover .cover-overlay{opacity:1}
+.cover-badge{position:absolute;top:8px;left:8px;background:var(--gold);color:#2a1000;font-size:8px;letter-spacing:0.3em;text-transform:uppercase;padding:4px 8px;font-weight:700}
+.cover-del-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--danger);color:#fff;transition:all 0.2s}
+.cover-del-btn:hover{background:#922b21;transform:scale(1.1)}
+.cover-set-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--gold);color:#2a1000;transition:all 0.2s}
+.cover-set-btn:hover{transform:scale(1.1)}
+.cover-info{padding:10px 12px;background:var(--white);border-top:1px solid var(--border)}
+.cover-info p{font-size:10px;color:var(--muted);letter-spacing:0.05em}
+.cover-info strong{font-size:11px;color:var(--ink);display:block;margin-bottom:2px}
+
+/* VIDEOS */
+.video-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px}
+.video-slot{background:var(--white);border:1px solid var(--border);overflow:hidden}
+.video-slot-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.video-slot-num{font-size:8px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.video-slot-status{font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+.video-slot-status.has-video{color:var(--success)}
+.video-preview{aspect-ratio:9/16;background:var(--light);position:relative;overflow:hidden}
+.video-preview video{width:100%;height:100%;object-fit:cover;display:block}
+.video-preview-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--muted)}
+.video-preview-empty p{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;text-align:center;line-height:1.6}
+.video-slot-body{padding:16px}
+.video-title-input{width:100%;border:1px solid var(--border);background:var(--off);padding:9px 12px;font-family:var(--f-body);font-size:13px;color:var(--ink);outline:none;transition:border-color 0.3s;margin-bottom:10px;border-radius:0}
+.video-title-input:focus{border-color:var(--maroon)}
+.video-title-label{font-size:8px;letter-spacing:0.35em;text-transform:uppercase;color:var(--rose);font-weight:500;display:block;margin-bottom:6px}
+.video-slot-actions{display:flex;gap:8px;flex-wrap:wrap}
+.video-upload-btn{flex:1;background:var(--maroon);color:#fff;border:none;padding:9px 14px;font-family:var(--f-body);font-size:8.5px;letter-spacing:0.25em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;white-space:nowrap}
+.video-upload-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.video-upload-btn:hover{background:var(--rose)}
+.video-upload-btn:disabled{background:var(--muted);cursor:not-allowed}
+.video-del-btn{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger);padding:9px 14px;font-family:var(--f-body);font-size:8.5px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.video-del-btn:hover{background:var(--danger);color:#fff}
+.video-progress{height:3px;background:var(--border);margin-top:10px;display:none}
+.video-progress-bar{height:100%;background:var(--gold);width:0%;transition:width 0.3s}
+.video-note{font-size:11px;color:var(--muted);line-height:1.6;padding:14px;background:rgba(171,136,80,0.08);border:1px solid rgba(171,136,80,0.25);margin-bottom:20px}
+
+/* QUOTATION PRICING TAB */
+.pricing-section{margin-bottom:36px}
+.pricing-section-title{font-family:var(--f-script);font-weight:800;font-size:19px;color:var(--maroon);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pricing-item{background:var(--white);border:1px solid var(--border);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.pricing-item-label{font-size:12.5px;color:var(--ink);font-weight:500}
+.pricing-item-value{display:flex;align-items:center;gap:6px}
+.pricing-item-value span{font-family:var(--f-ed);font-size:16px;color:var(--muted)}
+.pricing-input{flex:1;border:1px solid var(--border);background:var(--off);padding:9px 12px;font-family:var(--f-ed);font-size:15px;color:var(--maroon);font-weight:600;outline:none;transition:border-color 0.3s;border-radius:0}
+.pricing-input:focus{border-color:var(--maroon)}
+.pricing-reset-row{display:flex;justify-content:flex-end;margin-bottom:20px}
+.pricing-reset-btn{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger);padding:8px 18px;font-family:var(--f-body);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.pricing-reset-btn:hover{background:var(--danger);color:#fff}
+
+/* QUOTES TAB */
+.quotes-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.quotes-count-badge{background:var(--rose);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.1em}
+.quotes-clear-btn{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger);padding:8px 18px;font-family:var(--f-body);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.quotes-clear-btn:hover{background:var(--danger);color:#fff}
+.quotes-empty{padding:64px 24px;text-align:center;border:1px dashed rgba(92,23,48,0.15);color:var(--muted);font-size:14px;line-height:2}
+.quotes-empty p{font-size:13px}
+.quote-card{background:var(--white);border:1px solid var(--border);margin-bottom:12px;overflow:hidden;transition:border-color 0.2s}
+.quote-card:hover{border-color:rgba(92,23,48,0.25)}
+.quote-card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;border-bottom:1px solid transparent;transition:background 0.2s}
+.quote-card-header:hover{background:rgba(92,23,48,0.02)}
+.quote-card-header.open{border-bottom-color:var(--border);background:rgba(92,23,48,0.02)}
+.quote-client{display:flex;flex-direction:column;gap:3px}
+.quote-client-name{font-family:var(--f-script);font-weight:800;font-size:17px;color:var(--maroon)}
+.quote-client-meta{font-size:11px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
+.quote-total-badge{font-family:var(--f-ed);font-size:22px;color:var(--crimson,#8c2440)}
+.quote-chevron{font-size:12px;color:var(--muted);transition:transform 0.3s;flex-shrink:0;margin-left:12px}
+.quote-card-header.open .quote-chevron{transform:rotate(180deg)}
+.quote-card-body{display:none;padding:20px;border-top:1px solid var(--border)}
+.quote-card-body.open{display:block}
+.quote-summary-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.quote-summary-table th{text-align:left;padding:8px 12px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:500}
+.quote-summary-table td{padding:9px 12px;border-bottom:1px solid rgba(92,23,48,0.06);color:var(--ink)}
+.quote-summary-table tfoot td{font-weight:700;color:var(--rose);border-bottom:2px solid var(--border);padding-top:12px}
+.quote-details-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.qdg-cell{padding:12px 14px;background:var(--off);border-left:2px solid var(--gold)}
+.qdg-label{font-size:8px;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.qdg-val{font-size:13px;color:var(--ink);font-weight:500}
+.quote-card-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.q-action-btn{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;padding:8px 18px;border:none;cursor:pointer;transition:all 0.2s;font-family:var(--f-body);font-weight:500}
+.q-action-btn.whatsapp{background:var(--maroon);color:#fff}
+.q-action-btn.whatsapp:hover{background:var(--rose)}
+.q-action-btn.delete{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger)}
+.q-action-btn.delete:hover{background:var(--danger);color:#fff}
+.quote-timestamp{font-size:10px;color:var(--muted);letter-spacing:0.05em}
+.quotes-new-indicator{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rose);margin-left:6px;vertical-align:middle}
+
+/* SAVE BANNER */
+.save-banner{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--maroon);padding:14px 40px;display:none;align-items:center;justify-content:space-between;border-top:2px solid var(--gold)}
+.save-banner.visible{display:flex}
+.save-banner p{font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:0.05em}
+.save-btn{background:var(--gold);color:#2a1000;border:none;padding:10px 28px;font-family:var(--f-body);font-size:9.5px;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all 0.3s}
+.save-btn:hover{background:var(--gold-light)}
+.save-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:9000;background:rgba(20,8,14,0.72);display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--white);padding:40px;max-width:400px;width:90%;border-top:3px solid var(--danger)}
+.modal-title{font-family:var(--f-script);font-weight:800;font-size:21px;color:var(--ink);margin-bottom:10px}
+.modal-body{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:28px}
+.modal-actions{display:flex;gap:12px}
+.modal-confirm{background:var(--danger);color:#fff;border:none;padding:10px 24px;font-family:var(--f-body);font-size:9.5px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+.modal-confirm:hover{background:#922b21}
+.modal-cancel{background:none;border:1px solid var(--border);color:var(--muted);padding:10px 24px;font-family:var(--f-body);font-size:9.5px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.modal-cancel:hover{border-color:var(--ink);color:var(--ink)}
+
+/* LOADING */
+.loading-overlay{position:fixed;inset:0;z-index:8000;background:rgba(255,255,255,0.88);display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.loading-overlay.active{display:flex}
+.spinner{width:36px;height:36px;border:2px solid var(--border);border-top-color:var(--maroon);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted)}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:32px;right:32px;z-index:9998;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 20px;font-size:12px;font-weight:500;letter-spacing:0.05em;animation:toastIn 0.3s ease;max-width:320px}
+.toast.success{background:var(--success);color:#fff}
+.toast.error{background:var(--danger);color:#fff}
+.toast.info{background:var(--ink);color:#fff}
+@keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.sync-note{font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:0.15em;margin-right:8px}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Srujith Bhaskar <span>Admin</span></h1>
-  <div class="conn-status bad" id="connStatus">Not Connected</div>
-</header>
-
-<div class="wrap">
-
-  <div class="setup-card">
-    <h2>Connect Your Data</h2>
-    <p>Paste your JSONBin Bin ID and X-Master-Key below (from jsonbin.io). This is saved in this browser only — you'll need to re-enter it if you use a different device or browser.</p>
-    <div class="setup-row">
-      <div class="field"><label>JSONBin Bin ID</label><input type="text" id="binIdInput" placeholder="e.g. 66f1a2b3c4d5e6f7..."></div>
-      <div class="field"><label>X-Master-Key</label><input type="password" id="masterKeyInput" placeholder="$2a$10$..."></div>
-      <button class="btn btn-primary" id="connectBtn">Connect &amp; Load</button>
-    </div>
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <p class="login-logo">Srujith Bhaskar <span>Admin</span></p>
+    <p class="login-sub">Photography Studio · Authorized Access Only</p>
+    <label class="login-label">Password</label>
+    <input type="password" class="login-input" id="loginInput" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Access Admin →</button>
+    <p class="login-error" id="loginError">Incorrect password. Please try again.</p>
   </div>
-
-  <div id="adminBody" class="hidden-body" style="display:none">
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="portfolio">Portfolio</button>
-      <button class="tab-btn" data-tab="covers">Cover Photos</button>
-      <button class="tab-btn" data-tab="snapshot">Snapshot Gallery</button>
-      <button class="tab-btn" data-tab="videos">Films / Videos</button>
-    </div>
-
-    <div class="tab-panel active" id="tab-portfolio">
-      <div id="portfolioSections"></div>
-    </div>
-
-    <div class="tab-panel" id="tab-covers">
-      <div class="section-block">
-        <h3>Portfolio Cover Photos</h3>
-        <p class="sub">One cover image per collection — shown as the thumbnail on the main portfolio grid.</p>
-        <div class="cover-grid" id="coverGrid"></div>
-      </div>
-    </div>
-
-    <div class="tab-panel" id="tab-snapshot">
-      <div class="section-block">
-        <h3>Snapshot Gallery</h3>
-        <p class="sub">The scrolling "Frames We Love" strip on the homepage. Each image links out to your Instagram.</p>
-        <div class="upload-row">
-          <label class="file-label">📤 Upload Images<input type="file" id="snapshotFileInput" accept="image/*" multiple></label>
-          <span class="upload-status" id="snapshotStatus"></span>
-        </div>
-        <div class="thumb-grid" id="snapshotThumbs"></div>
-      </div>
-    </div>
-
-    <div class="tab-panel" id="tab-videos">
-      <div class="section-block">
-        <h3>Cinematic Films</h3>
-        <p class="sub">Up to 3 vertical (9:16) films shown in the "Love in Motion" section. Uploading a 4th replaces the oldest.</p>
-        <div class="upload-row">
-          <label class="file-label">📤 Upload Video<input type="file" id="videoFileInput" accept="video/*"></label>
-          <span class="upload-status" id="videoStatus"></span>
-        </div>
-        <div id="videoList"></div>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <nav class="admin-nav">
+    <p class="admin-nav-logo">Srujith Bhaskar <span>Admin</span></p>
+    <div class="admin-nav-right">
+      <span class="sync-note" id="syncNote">Last saved: never</span>
+      <span class="admin-tag">Studio Manager</span>
+      <button class="admin-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+    <div class="admin-header">
+      <h1>Studio Manager</h1>
+      <p>Upload photos, manage videos, update cover images, edit quote pricing, and view client quote requests. Changes go live on your website after you click Save.</p>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-cell"><div class="stat-n" id="statTotal">—</div><div class="stat-label">Portfolio Photos</div></div>
+      <div class="stat-cell"><div class="stat-n" id="statSnap">—</div><div class="stat-label">Snapshot Grid</div></div>
+      <div class="stat-cell"><div class="stat-n" id="statVideos">—</div><div class="stat-label">Videos Live</div></div>
+      <div class="stat-cell"><div class="stat-n" id="statQuotes">—</div><div class="stat-label">Quote Requests</div></div>
+      <div class="stat-cell"><div class="stat-n">10</div><div class="stat-label">Max Per Category</div></div>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="tab-btn active" data-tab="upload">📷 Upload Photos</button>
+      <button class="tab-btn" data-tab="videos">🎬 Videos</button>
+      <button class="tab-btn" data-tab="covers">🖼 Cover Images</button>
+      <button class="tab-btn" data-tab="pricing">💰 Quote Pricing</button>
+      <button class="tab-btn" data-tab="quotes">✦ Quote Requests<span class="notif-badge" id="quoteBadge" style="display:none"></span></button>
+      <button class="tab-btn" data-tab="prewedding">Pre-Wedding</button>
+      <button class="tab-btn" data-tab="engagement">Engagement</button>
+      <button class="tab-btn" data-tab="haldi">Haldi</button>
+      <button class="tab-btn" data-tab="wedding">Wedding Day</button>
+      <button class="tab-btn" data-tab="reception">Reception</button>
+      <button class="tab-btn" data-tab="specials">Specials</button>
+      <button class="tab-btn" data-tab="snapshot">Snapshot Grid</button>
+    </div>
+
+    <!-- ══ UPLOAD TAB ══ -->
+    <div class="tab-panel active" id="tab-upload">
+      <span class="section-label">Upload New Photos</span>
+      <div class="cap-warning" id="capWarning">⚠ This category already has 10 photos — the maximum allowed. Please delete some before uploading more.</div>
+      <div class="upload-controls">
+        <select class="cat-select" id="uploadCatSelect">
+          <option value="">— Select a category —</option>
+          <option value="prewedding">Pre-Wedding</option>
+          <option value="engagement">Engagement</option>
+          <option value="haldi">Haldi</option>
+          <option value="wedding">Wedding Day</option>
+          <option value="reception">Reception</option>
+          <option value="specials">Specials</option>
+          <option value="snapshot">Snapshot Grid (Frames We Love)</option>
+        </select>
+        <button class="upload-btn" id="uploadStartBtn" onclick="startUpload()" disabled>Upload →</button>
+      </div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="image/*" multiple onchange="onFileSelect(this.files)">
+        <div class="upload-icon">📷</div>
+        <p class="upload-title">Drop photos here or click to browse</p>
+        <p class="upload-hint">JPG, PNG, WebP · Select multiple at once<br>Tip: Compress first at <strong>squoosh.app</strong> for faster loading</p>
+      </div>
+      <div class="upload-queue" id="uploadQueue"></div>
+    </div>
+
+    <!-- ══ VIDEOS TAB ══ -->
+    <div class="tab-panel" id="tab-videos">
+      <span class="section-label">Video Films Manager</span>
+      <div class="video-note">⚡ Maximum 3 videos on the website. To add a new video, first delete an existing one. Each video can have a custom title that displays on your website. Videos are uploaded to Cloudinary and saved automatically — they appear live on the website after you click Save.</div>
+      <div class="video-slots" id="videoSlots"></div>
+    </div>
+
+    <!-- ══ COVERS TAB ══ -->
+    <div class="tab-panel" id="tab-covers">
+      <span class="section-label">Portfolio Cover Images</span>
+      <div class="video-note">🖼 Each portfolio category has a cover thumbnail shown on the main website's collection grid. Upload an image to set a custom cover for any category. Delete a cover to revert to the default gradient look. Changes are live after you click Save.</div>
+      <div class="cover-grid" id="coverGrid"></div>
+    </div>
+
+    <!-- ══ QUOTE PRICING TAB ══ -->
+    <div class="tab-panel" id="tab-pricing">
+      <span class="section-label">Quote Builder Pricing</span>
+      <div class="video-note">💰 These are the exact prices shown to clients in the "Build Your Quote" tool on your website. Edit any amount below (in ₹) and click <strong>Save Changes</strong> — the quote builder updates instantly for every visitor.</div>
+      <div class="pricing-reset-row"><button class="pricing-reset-btn" onclick="resetAllPricing()">Reset All to Defaults</button></div>
+      <div id="pricingContainer"></div>
+    </div>
+
+    <!-- ══ QUOTES TAB ══ -->
+    <div class="tab-panel" id="tab-quotes">
+      <div class="quotes-header">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="section-label" style="margin-bottom:0">Client Quote Requests</span>
+          <span class="quotes-count-badge" id="quotesCountBadge">0 Quotes</span>
+        </div>
+        <button class="quotes-clear-btn" onclick="clearAllQuotes()">Clear All</button>
+      </div>
+      <div class="video-note">ℹ Quote requests are saved on this device (this browser) when a client completes the "Build Your Quote" form. To view requests from a different device, ask the client for their WhatsApp message.</div>
+      <div id="quotesContainer"></div>
+    </div>
+
+    <!-- CATEGORY GALLERY TABS -->
+    <div class="tab-panel" id="tab-prewedding"><div class="gallery-section" id="gallery-prewedding"></div></div>
+    <div class="tab-panel" id="tab-engagement"><div class="gallery-section" id="gallery-engagement"></div></div>
+    <div class="tab-panel" id="tab-haldi"><div class="gallery-section" id="gallery-haldi"></div></div>
+    <div class="tab-panel" id="tab-wedding"><div class="gallery-section" id="gallery-wedding"></div></div>
+    <div class="tab-panel" id="tab-reception"><div class="gallery-section" id="gallery-reception"></div></div>
+    <div class="tab-panel" id="tab-specials"><div class="gallery-section" id="gallery-specials"></div></div>
+    <div class="tab-panel" id="tab-snapshot"><div class="gallery-section" id="gallery-snapshot"></div></div>
+  </div>
+</div>
+
+<!-- SAVE BANNER -->
+<div class="save-banner" id="saveBanner">
+  <p>✦ You have unsaved changes — click Save to update your live website.</p>
+  <button class="save-btn" id="saveBannerBtn" onclick="saveToJSONBin()">Save Changes →</button>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box">
+    <p class="modal-title">Confirm Action</p>
+    <p class="modal-body" id="confirmModalBody">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="modal-confirm" id="confirmModalYes">Yes, Confirm</button>
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <p class="loading-text" id="loadingText">Loading…</p>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
-const CLOUD_NAME = 'nqapapkj';
-const UPLOAD_PRESET = 'srujith bhaskar';
+/* ══════════════════════════════════════
+   ⚙️ CONFIG — must match index.html exactly
+══════════════════════════════════════ */
+const CLOUD_NAME     = 'nqapapkj';
+const UPLOAD_PRESET  = 'srujith bhaskar';
+const JSONBIN_KEY    = '$2a$10$k6B/yUZ/sqKKaHjVGCfMJuTNI1OmXnNCbiK/j1INWem.2xng6mUfm';
+const JSONBIN_BIN_ID = '6a75a1b8da38895dfec567ec';
+const ADMIN_PASSWORD = 'srujith2026';
+const MAX_PER_CAT    = 10;
+const MAX_VIDEOS     = 3;
 
-const CATEGORIES = [
-  {key:'prewedding', label:'Pre-Wedding'},
-  {key:'engagement', label:'Engagement'},
-  {key:'haldi', label:'Haldi'},
-  {key:'wedding', label:'Wedding Day'},
-  {key:'reception', label:'Reception'},
-  {key:'specials', label:'Specials'},
+/* ══════════════════════════════════════
+   DEFAULT QUOTE PRICING — mirrors the data-price / data-label
+   values baked into index.html's quote builder cards
+══════════════════════════════════════ */
+const PRICING_CATALOG = [
+  { section:'Engagement Coverage', items:[
+    { value:'eng_trad_photo',   label:'Traditional Photo',   defaultPrice:10000 },
+    { value:'eng_trad_video',   label:'Traditional Video 4K',defaultPrice:10000 },
+    { value:'eng_candid_photo', label:'Candid Photo',        defaultPrice:15000 },
+    { value:'eng_candid_video', label:'Candid Video 4K',     defaultPrice:15000 },
+  ]},
+  { section:'Bride & Groom Making', items:[
+    { value:'mk_bride_photo', label:'Bride Making Photo',  defaultPrice:8000 },
+    { value:'mk_bride_video', label:'Bride Making Video',  defaultPrice:8000 },
+    { value:'mk_groom_photo', label:'Groom Making Photo',  defaultPrice:8000 },
+    { value:'mk_groom_video', label:'Groom Making Video',  defaultPrice:8000 },
+  ]},
+  { section:'Haldi Coverage', items:[
+    { value:'hd_bride_candid_photo', label:'Bride Haldi Photo', defaultPrice:12000 },
+    { value:'hd_bride_candid_video', label:'Bride Haldi Video', defaultPrice:15000 },
+    { value:'hd_groom_candid_photo', label:'Groom Haldi Photo', defaultPrice:12000 },
+    { value:'hd_groom_candid_video', label:'Groom Haldi Video', defaultPrice:15000 },
+  ]},
+  { section:'Formalities Coverage', items:[
+    { value:'fm_bride_photo', label:'Bride Formalities Photo', defaultPrice:7000 },
+    { value:'fm_bride_video', label:'Bride Formalities Video', defaultPrice:7000 },
+    { value:'fm_groom_photo', label:'Groom Formalities Photo', defaultPrice:7000 },
+    { value:'fm_groom_video', label:'Groom Formalities Video', defaultPrice:7000 },
+  ]},
+  { section:'Reception & Wedding (Mandatory)', items:[
+    { value:'rw_trad_photo',   label:'Traditional Photo',    defaultPrice:20000 },
+    { value:'rw_trad_video',   label:'Traditional Video 4K', defaultPrice:20000 },
+    { value:'rw_candid_photo', label:'Candid Photo',         defaultPrice:30000 },
+    { value:'rw_candid_video', label:'Candid Video 4K',      defaultPrice:30000 },
+    { value:'rw_drone',        label:'Drone',                defaultPrice:8000 },
+  ]},
+  { section:'Albums (50 sheets each)', items:[
+    { value:'alb_bride', label:'Bride Album', defaultPrice:18000 },
+    { value:'alb_groom', label:'Groom Album', defaultPrice:18000 },
+  ]},
+  { section:'Post Production', items:[
+    { value:'post_rush',     label:'Rush Delivery',      defaultPrice:25000 },
+    { value:'post_standard', label:'Standard Timeline',  defaultPrice:0 },
+  ]},
+  { section:'Pre-Wedding', items:[
+    { value:'pw_photo_only',  label:'Photo Only',      defaultPrice:20000 },
+    { value:'pw_photo_video', label:'Photo & Video',   defaultPrice:45000 },
+  ]},
 ];
 
-let BIN_ID = localStorage.getItem('sb_bin_id') || '';
-let MASTER_KEY = localStorage.getItem('sb_master_key') || '';
-let record = null;
+/* ══════════════════════════════════════
+   DATA MODEL — shape must stay in sync with index.html's loader:
+   { prewedding[], engagement[], haldi[], wedding[], reception[], specials[],
+     snapshot[], videos:[{url,title}], covers:{cat:url}, quotePricing:{value:price} }
+══════════════════════════════════════ */
+let galleryData = {
+  prewedding: [], engagement: [], haldi: [],
+  wedding: [], reception: [], specials: [],
+  snapshot: [],
+  videos: [],
+  covers: {},
+  quotePricing: {}
+};
+let hasUnsavedChanges = false;
+let pendingFiles = [];
 
-document.getElementById('binIdInput').value = BIN_ID;
-document.getElementById('masterKeyInput').value = MASTER_KEY;
+/* Quotes stored in localStorage — client-submitted quote requests.
+   Key MUST match what index.html writes when a client submits a quote. */
+const QUOTES_KEY = 'srujith_admin_quotes';
 
-function showToast(msg, isErr){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (isErr ? ' err' : '');
-  setTimeout(()=>{ t.className = 'toast'; }, 2600);
-}
+const CATEGORY_LABELS = {
+  prewedding: 'Pre-Wedding',
+  engagement: 'Engagement',
+  haldi:      'Haldi',
+  wedding:    'Wedding Day',
+  reception:  'Reception',
+  specials:   'Specials',
+  snapshot:   'Snapshot Grid'
+};
 
-function setConnStatus(ok, label){
-  const el = document.getElementById('connStatus');
-  el.textContent = label;
-  el.className = 'conn-status ' + (ok ? 'ok' : 'bad');
-}
-
-async function fetchRecord(){
-  const res = await fetch('https://api.jsonbin.io/v3/b/'+BIN_ID+'/latest', {headers:{'X-Master-Key': MASTER_KEY}});
-  if(!res.ok) throw new Error('Could not load bin ('+res.status+')');
-  const data = await res.json();
-  return data.record;
-}
-
-async function saveRecord(){
-  const res = await fetch('https://api.jsonbin.io/v3/b/'+BIN_ID, {
-    method:'PUT',
-    headers:{'Content-Type':'application/json','X-Master-Key': MASTER_KEY},
-    body: JSON.stringify(record)
-  });
-  if(!res.ok) throw new Error('Save failed ('+res.status+')');
-  showToast('Saved ✓');
-}
-
-function ensureShape(rec){
-  rec = rec || {};
-  CATEGORIES.forEach(c => { if(!Array.isArray(rec[c.key])) rec[c.key] = []; });
-  if(!Array.isArray(rec.snapshot)) rec.snapshot = [];
-  if(!Array.isArray(rec.videos)) rec.videos = [];
-  if(typeof rec.covers !== 'object' || !rec.covers) rec.covers = {};
-  CATEGORIES.forEach(c => { if(!rec.covers[c.key]) rec.covers[c.key] = ''; });
-  return rec;
-}
-
-document.getElementById('connectBtn').addEventListener('click', async () => {
-  BIN_ID = document.getElementById('binIdInput').value.trim();
-  MASTER_KEY = document.getElementById('masterKeyInput').value.trim();
-  if(!BIN_ID || !MASTER_KEY){ showToast('Enter both the Bin ID and Master Key', true); return; }
-  localStorage.setItem('sb_bin_id', BIN_ID);
-  localStorage.setItem('sb_master_key', MASTER_KEY);
-  try{
-    record = ensureShape(await fetchRecord());
-    setConnStatus(true, 'Connected');
-    document.getElementById('adminBody').style.display = 'block';
-    renderAll();
-    showToast('Loaded your data ✓');
-  }catch(e){
-    setConnStatus(false, 'Connection Failed');
-    showToast(e.message, true);
+/* ══════════════════════════════════════
+   AUTH
+══════════════════════════════════════ */
+function doLogin() {
+  const val = document.getElementById('loginInput').value;
+  if (val === ADMIN_PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    loadFromJSONBin();
+  } else {
+    const err = document.getElementById('loginError');
+    err.style.display = 'block';
+    document.getElementById('loginInput').value = '';
+    document.getElementById('loginInput').focus();
+    setTimeout(() => err.style.display = 'none', 3000);
   }
-});
+}
 
-// auto-connect if credentials already saved
-window.addEventListener('DOMContentLoaded', () => {
-  if(BIN_ID && MASTER_KEY) document.getElementById('connectBtn').click();
-  wireTabs();
-});
+function doLogout() {
+  if (hasUnsavedChanges && !confirm('You have unsaved changes. Log out anyway?')) return;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('loginInput').value = '';
+}
 
-function wireTabs(){
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+/* ══════════════════════════════════════
+   JSONBIN — shared data source with index.html
+══════════════════════════════════════ */
+async function loadFromJSONBin() {
+  showLoading('Loading your studio data…');
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_KEY }
     });
-  });
-}
+    if (!res.ok) throw new Error('JSONBin ' + res.status);
+    const data = await res.json();
+    const record = data.record || {};
 
-async function uploadToCloudinary(file, isVideo){
-  const url = 'https://api.cloudinary.com/v1_1/'+CLOUD_NAME+'/'+(isVideo?'video':'image')+'/upload';
-  const fd = new FormData();
-  fd.append('file', file);
-  fd.append('upload_preset', UPLOAD_PRESET);
-  const res = await fetch(url, {method:'POST', body:fd});
-  if(!res.ok){
-    const err = await res.text();
-    throw new Error('Cloudinary upload failed: '+err.slice(0,200));
+    ['prewedding','engagement','haldi','wedding','reception','specials','snapshot'].forEach(k => {
+      if (Array.isArray(record[k])) galleryData[k] = record[k].slice(0, MAX_PER_CAT);
+    });
+    if (Array.isArray(record.videos)) {
+      galleryData.videos = record.videos.filter(Boolean).slice(0, MAX_VIDEOS);
+    }
+    if (record.covers && typeof record.covers === 'object') {
+      galleryData.covers = record.covers;
+    }
+    if (record.quotePricing && typeof record.quotePricing === 'object') {
+      galleryData.quotePricing = record.quotePricing;
+    }
+
+    renderAllGalleries();
+    renderVideoSlots();
+    renderCoversGrid();
+    renderPricingTab();
+    renderQuotesTab();
+    updateStats();
+    updateSyncNote();
+    toast('Studio data loaded ✓', 'success');
+  } catch(e) {
+    toast('Could not load from JSONBin — check your keys / bin ID', 'error');
+    console.error(e);
   }
-  const data = await res.json();
-  return data.secure_url;
+  hideLoading();
 }
 
-// ── PORTFOLIO ──
-function renderPortfolioSections(){
-  const wrap = document.getElementById('portfolioSections');
-  wrap.innerHTML = '';
-  CATEGORIES.forEach(cat=>{
-    const block = document.createElement('div');
-    block.className = 'section-block';
-    block.innerHTML = `
-      <h3>${cat.label}</h3>
-      <p class="sub">Photos shown in this collection on the portfolio page.</p>
-      <div class="upload-row">
-        <label class="file-label">📤 Upload Images<input type="file" data-cat="${cat.key}" class="portfolio-file" accept="image/*" multiple></label>
-        <span class="upload-status" id="status-${cat.key}"></span>
-      </div>
-      <div class="thumb-grid" id="thumbs-${cat.key}"></div>
+async function saveToJSONBin() {
+  const btn = document.getElementById('saveBannerBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+      body: JSON.stringify(galleryData)
+    });
+    if (!res.ok) throw new Error('JSONBin save ' + res.status);
+    hasUnsavedChanges = false;
+    document.getElementById('saveBanner').classList.remove('visible');
+    updateSyncNote();
+    toast('Saved! Your website is now updated ✓', 'success');
+  } catch(e) {
+    toast('Save failed — please try again', 'error');
+    console.error(e);
+  }
+  btn.disabled = false; btn.textContent = 'Save Changes →';
+}
+
+function updateSyncNote() {
+  const el = document.getElementById('syncNote');
+  if (el) el.textContent = 'Last saved: ' + new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+}
+
+/* ══════════════════════════════════════
+   TABS
+══════════════════════════════════════ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ══════════════════════════════════════
+   PHOTO UPLOAD
+══════════════════════════════════════ */
+document.getElementById('uploadCatSelect').addEventListener('change', function() {
+  const cat = this.value;
+  const isFull = cat && (galleryData[cat]?.length || 0) >= MAX_PER_CAT;
+  document.getElementById('capWarning').classList.toggle('visible', isFull);
+  updateUploadBtn();
+});
+
+function updateUploadBtn() {
+  const cat = document.getElementById('uploadCatSelect').value;
+  const isFull = cat && (galleryData[cat]?.length || 0) >= MAX_PER_CAT;
+  document.getElementById('uploadStartBtn').disabled = !cat || pendingFiles.length === 0 || isFull;
+}
+
+function onFileSelect(files) {
+  const cat = document.getElementById('uploadCatSelect').value;
+  const current = cat ? (galleryData[cat]?.length || 0) : 0;
+  const slots = MAX_PER_CAT - current;
+  pendingFiles = [...files].slice(0, Math.max(0, slots));
+  if ([...files].length > slots && cat) {
+    toast(`Only ${slots} slot${slots !== 1 ? 's' : ''} left — trimmed to ${pendingFiles.length} file${pendingFiles.length !== 1 ? 's' : ''}`, 'info');
+  }
+  renderQueue();
+  updateUploadBtn();
+}
+
+function renderQueue() {
+  const q = document.getElementById('uploadQueue');
+  q.innerHTML = '';
+  pendingFiles.forEach((file, i) => {
+    const url = URL.createObjectURL(file);
+    const item = document.createElement('div');
+    item.className = 'queue-item';
+    item.id = 'qitem-' + i;
+    item.innerHTML = `
+      <img class="queue-thumb" src="${url}" alt="">
+      <span class="queue-name">${file.name}</span>
+      <span class="queue-status pending" id="qstatus-${i}">Ready</span>
+      <button class="queue-remove" onclick="removeFromQueue(${i})" id="qremove-${i}">✕</button>
     `;
-    wrap.appendChild(block);
-  });
-  document.querySelectorAll('.portfolio-file').forEach(input=>{
-    input.addEventListener('change', async (e)=>{
-      const cat = input.dataset.cat;
-      const files = Array.from(e.target.files);
-      if(!files.length) return;
-      const statusEl = document.getElementById('status-'+cat);
-      statusEl.textContent = 'Uploading 0/'+files.length+'…';
-      statusEl.className = 'upload-status';
-      let done = 0;
-      for(const file of files){
-        try{
-          const url = await uploadToCloudinary(file, false);
-          record[cat].push(url);
-          done++;
-          statusEl.textContent = 'Uploading '+done+'/'+files.length+'…';
-        }catch(err){
-          statusEl.textContent = err.message;
-          statusEl.className = 'upload-status err';
-        }
-      }
-      renderPortfolioThumbs(cat);
-      try{ await saveRecord(); statusEl.textContent='Done ✓'; statusEl.className='upload-status ok'; }
-      catch(err){ statusEl.textContent = err.message; statusEl.className='upload-status err'; }
-      input.value = '';
-    });
-  });
-  CATEGORIES.forEach(c => renderPortfolioThumbs(c.key));
-}
-
-function renderPortfolioThumbs(cat){
-  const grid = document.getElementById('thumbs-'+cat);
-  const urls = record[cat] || [];
-  if(urls.length === 0){ grid.innerHTML = '<p class="thumb-empty">No photos yet</p>'; return; }
-  grid.innerHTML = urls.map((url,i)=>`
-    <div class="thumb">
-      <img src="${url.replace('/upload/','/upload/q_auto,f_auto,w_300/')}" alt="" loading="lazy">
-      <button class="del" data-cat="${cat}" data-idx="${i}">✕</button>
-    </div>
-  `).join('');
-  grid.querySelectorAll('.del').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const c = btn.dataset.cat, idx = parseInt(btn.dataset.idx);
-      record[c].splice(idx,1);
-      renderPortfolioThumbs(c);
-      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
-    });
+    q.appendChild(item);
   });
 }
 
-// ── COVERS ──
-function renderCovers(){
-  const grid = document.getElementById('coverGrid');
-  grid.innerHTML = CATEGORIES.map(cat=>`
-    <div class="cover-item">
-      <p class="cover-label">${cat.label}</p>
-      <div class="cover-preview" id="coverPreview-${cat.key}">
-        ${record.covers[cat.key] ? `<img src="${record.covers[cat.key].replace('/upload/','/upload/q_auto,f_auto,w_300/')}" alt="">` : '<span class="none">No cover set</span>'}
-      </div>
-      <label class="file-label btn-sm">📤 Set Cover<input type="file" class="cover-file" data-cat="${cat.key}" accept="image/*"></label>
-    </div>
-  `).join('');
-  grid.querySelectorAll('.cover-file').forEach(input=>{
-    input.addEventListener('change', async (e)=>{
-      const cat = input.dataset.cat;
-      const file = e.target.files[0];
-      if(!file) return;
-      try{
-        const url = await uploadToCloudinary(file, false);
-        record.covers[cat] = url;
-        renderCovers();
-        await saveRecord();
-      }catch(err){ showToast(err.message, true); }
-      input.value = '';
-    });
-  });
-}
+function removeFromQueue(i) { pendingFiles.splice(i, 1); renderQueue(); updateUploadBtn(); }
 
-// ── SNAPSHOT ──
-function renderSnapshotThumbs(){
-  const grid = document.getElementById('snapshotThumbs');
-  const urls = record.snapshot || [];
-  if(urls.length === 0){ grid.innerHTML = '<p class="thumb-empty">No photos yet</p>'; return; }
-  grid.innerHTML = urls.map((url,i)=>`
-    <div class="thumb">
-      <img src="${url.replace('/upload/','/upload/q_auto,f_auto,w_300/')}" alt="" loading="lazy">
-      <button class="del" data-idx="${i}">✕</button>
-    </div>
-  `).join('');
-  grid.querySelectorAll('.del').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      record.snapshot.splice(parseInt(btn.dataset.idx),1);
-      renderSnapshotThumbs();
-      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
-    });
-  });
-}
-document.getElementById('snapshotFileInput').addEventListener('change', async (e)=>{
-  const files = Array.from(e.target.files);
-  if(!files.length) return;
-  const statusEl = document.getElementById('snapshotStatus');
-  statusEl.textContent = 'Uploading 0/'+files.length+'…'; statusEl.className='upload-status';
-  let done=0;
-  for(const file of files){
-    try{ const url = await uploadToCloudinary(file, false); record.snapshot.push(url); done++; statusEl.textContent='Uploading '+done+'/'+files.length+'…'; }
-    catch(err){ statusEl.textContent = err.message; statusEl.className='upload-status err'; }
+async function startUpload() {
+  const cat = document.getElementById('uploadCatSelect').value;
+  if (!cat) { toast('Please select a category first', 'error'); return; }
+  if (pendingFiles.length === 0) { toast('No files selected', 'error'); return; }
+  if ((galleryData[cat]?.length || 0) >= MAX_PER_CAT) {
+    toast(`${CATEGORY_LABELS[cat]} is full (max ${MAX_PER_CAT}). Delete some photos first.`, 'error'); return;
   }
-  renderSnapshotThumbs();
-  try{ await saveRecord(); statusEl.textContent='Done ✓'; statusEl.className='upload-status ok'; }
-  catch(err){ statusEl.textContent = err.message; statusEl.className='upload-status err'; }
-  e.target.value = '';
-});
+  document.getElementById('uploadStartBtn').disabled = true;
+  let successCount = 0;
+  for (let i = 0; i < pendingFiles.length; i++) {
+    if ((galleryData[cat]?.length || 0) >= MAX_PER_CAT) { toast(`Reached limit of ${MAX_PER_CAT} for this category`, 'info'); break; }
+    const file = pendingFiles[i];
+    const statusEl = document.getElementById('qstatus-' + i);
+    const removeEl = document.getElementById('qremove-' + i);
+    if (statusEl) { statusEl.textContent = 'Uploading…'; statusEl.className = 'queue-status uploading'; }
+    if (removeEl) removeEl.style.display = 'none';
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      formData.append('folder', 'srujith-bhaskar/' + cat);
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Cloudinary ' + res.status);
+      const data = await res.json();
+      if (!galleryData[cat]) galleryData[cat] = [];
+      galleryData[cat].push(data.secure_url);
+      if (statusEl) { statusEl.textContent = '✓ Done'; statusEl.className = 'queue-status done'; }
+      successCount++;
+      markUnsaved();
+      renderGallery(cat);
+      updateStats();
+    } catch(e) {
+      if (statusEl) { statusEl.textContent = '✗ Failed'; statusEl.className = 'queue-status error'; }
+      toast(`Upload failed: ${file.name}`, 'error');
+      console.error(e);
+    }
+  }
+  if (successCount > 0) {
+    toast(`${successCount} photo${successCount > 1 ? 's' : ''} uploaded ✓`, 'success');
+    setTimeout(() => {
+      pendingFiles = [];
+      document.getElementById('uploadQueue').innerHTML = '';
+      document.getElementById('fileInput').value = '';
+      updateUploadBtn();
+    }, 2000);
+  }
+  document.getElementById('uploadStartBtn').disabled = false;
+  document.getElementById('uploadCatSelect').dispatchEvent(new Event('change'));
+}
 
-// ── VIDEOS ──
-function renderVideos(){
-  const wrap = document.getElementById('videoList');
-  const vids = record.videos || [];
-  if(vids.length === 0){ wrap.innerHTML = '<p class="thumb-empty">No films uploaded yet</p>'; return; }
-  wrap.innerHTML = vids.map((v,i)=>`
-    <div class="video-item">
-      <video src="${v.url}" muted></video>
-      <div class="vi-body">
-        <input type="text" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="Film title" data-idx="${i}" class="vi-title">
-        <div class="vi-actions">
-          <button class="btn btn-ghost btn-sm vi-save" data-idx="${i}">Save Title</button>
-          <button class="btn btn-ghost btn-sm vi-del" data-idx="${i}">Remove</button>
+const zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); onFileSelect(e.dataTransfer.files); });
+
+/* ══════════════════════════════════════
+   GALLERY RENDER
+══════════════════════════════════════ */
+function renderAllGalleries() {
+  Object.keys(CATEGORY_LABELS).forEach(cat => renderGallery(cat));
+}
+
+function renderGallery(cat) {
+  const container = document.getElementById('gallery-' + cat);
+  if (!container) return;
+  const images = galleryData[cat] || [];
+  const label = CATEGORY_LABELS[cat] || cat;
+  const count = images.length;
+  const atCap = count >= MAX_PER_CAT;
+  const header = `
+    <div class="gallery-section-header">
+      <h3 class="gallery-section-title">${label}</h3>
+      <div style="display:flex;gap:16px;align-items:center">
+        ${atCap ? `<span class="gallery-cap">✦ Full (${MAX_PER_CAT}/${MAX_PER_CAT})</span>` : ''}
+        <span class="gallery-count">${count} / ${MAX_PER_CAT} photos</span>
+      </div>
+    </div>`;
+  if (images.length === 0) {
+    container.innerHTML = header + `<div class="empty-cat">No photos yet.<br>Go to <strong>Upload Photos</strong> to add some.</div>`;
+    return;
+  }
+  const gridHTML = images.map((url, i) => `
+    <div class="photo-item">
+      <img src="${url.replace('/upload/', '/upload/q_auto,f_auto,w_300/')}" alt="" loading="lazy">
+      <div class="photo-overlay">
+        <button class="photo-del-btn" onclick="confirmDelete('${cat}', ${i})" title="Delete">🗑</button>
+      </div>
+    </div>`).join('');
+  container.innerHTML = header + `<div class="photo-grid">${gridHTML}</div>`;
+}
+
+/* ══════════════════════════════════════
+   VIDEO MANAGER
+══════════════════════════════════════ */
+function renderVideoSlots() {
+  const container = document.getElementById('videoSlots');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 0; i < MAX_VIDEOS; i++) {
+    const v = (galleryData.videos || [])[i];
+    const hasVideo = !!v;
+    const slot = document.createElement('div');
+    slot.className = 'video-slot';
+    slot.id = 'vslot-' + i;
+    slot.innerHTML = `
+      <div class="video-slot-header">
+        <span class="video-slot-num">Film · 0${i+1}</span>
+        <span class="video-slot-status ${hasVideo ? 'has-video' : ''}">${hasVideo ? '● Live' : '○ Empty'}</span>
+      </div>
+      <div class="video-preview" id="vpreview-${i}">
+        ${hasVideo
+          ? `<video src="${v.url}" muted loop playsinline preload="metadata" style="cursor:pointer" onclick="this.paused?this.play():this.pause()"></video>`
+          : `<div class="video-preview-empty"><span style="font-size:28px;opacity:0.3">🎬</span><p>No video yet</p></div>`
+        }
+      </div>
+      <div class="video-slot-body">
+        <label class="video-title-label">Video Title (shown on website)</label>
+        <input type="text" class="video-title-input" id="vtitle-${i}"
+          placeholder="e.g. A Wedding to Remember"
+          value="${hasVideo && v.title ? v.title : ''}"
+          oninput="onVideoTitleChange(${i})">
+        <div class="video-slot-actions">
+          <button class="video-upload-btn" id="vupload-btn-${i}" ${hasVideo ? 'disabled title="Delete current video first"' : ''}>
+            ${hasVideo ? '✦ Slot Occupied' : '↑ Upload Video'}
+            ${!hasVideo ? `<input type="file" accept="video/mp4,video/*" onchange="uploadVideo(${i}, this.files[0])">` : ''}
+          </button>
+          ${hasVideo ? `<button class="video-del-btn" onclick="confirmDeleteVideo(${i})">🗑 Remove</button>` : ''}
+        </div>
+        <div class="video-progress" id="vprog-${i}"><div class="video-progress-bar" id="vprogbar-${i}"></div></div>
+      </div>`;
+    container.appendChild(slot);
+  }
+}
+
+function onVideoTitleChange(i) {
+  if (!galleryData.videos[i]) return;
+  galleryData.videos[i].title = document.getElementById('vtitle-' + i).value;
+  markUnsaved();
+}
+
+async function uploadVideo(slotIndex, file) {
+  if (!file) return;
+  const progEl = document.getElementById('vprog-' + slotIndex);
+  const progBar = document.getElementById('vprogbar-' + slotIndex);
+  const btn = document.getElementById('vupload-btn-' + slotIndex);
+  if (progEl) progEl.style.display = 'block';
+  if (btn) btn.innerHTML = '↑ Uploading…';
+  if (btn) btn.disabled = true;
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('folder', 'srujith-bhaskar/videos');
+    let prog = 0;
+    const progInterval = setInterval(() => {
+      prog = Math.min(prog + Math.random() * 12, 85);
+      if (progBar) progBar.style.width = prog + '%';
+    }, 400);
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, { method: 'POST', body: formData });
+    clearInterval(progInterval);
+    if (!res.ok) throw new Error('Cloudinary video ' + res.status);
+    const data = await res.json();
+    if (progBar) progBar.style.width = '100%';
+    while (galleryData.videos.length <= slotIndex) galleryData.videos.push(null);
+    const titleInput = document.getElementById('vtitle-' + slotIndex);
+    galleryData.videos[slotIndex] = {
+      url: data.secure_url,
+      title: (titleInput && titleInput.value.trim()) || `Film · 0${slotIndex + 1}`
+    };
+    galleryData.videos = galleryData.videos.filter(v => v !== null);
+    markUnsaved();
+    renderVideoSlots();
+    updateStats();
+    toast(`Video ${slotIndex + 1} uploaded ✓`, 'success');
+  } catch(e) {
+    toast('Video upload failed — try again', 'error');
+    console.error(e);
+    renderVideoSlots();
+  }
+}
+
+function confirmDeleteVideo(i) {
+  const v = galleryData.videos[i];
+  document.getElementById('confirmModalBody').textContent = `Remove "${v?.title || `Film 0${i+1}`}" from your website? The video file on Cloudinary won't be deleted.`;
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Remove';
+  document.getElementById('confirmModalYes').onclick = () => {
+    galleryData.videos.splice(i, 1);
+    closeModal();
+    renderVideoSlots();
+    updateStats();
+    markUnsaved();
+    toast('Video removed', 'info');
+  };
+}
+
+/* ══════════════════════════════════════
+   COVER IMAGES MANAGER
+   Covers in galleryData.covers = { cat: url }
+   Read by index.html to override the pthumb background image per category.
+══════════════════════════════════════ */
+const COVER_CATS = ['prewedding','engagement','haldi','wedding','reception','specials'];
+
+function renderCoversGrid() {
+  const grid = document.getElementById('coverGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  COVER_CATS.forEach(cat => {
+    const customUrl = galleryData.covers?.[cat];
+    const isCustom = !!customUrl;
+    const cell = document.createElement('div');
+    cell.className = `cover-item ${isCustom ? 'is-current' : ''}`;
+    cell.id = 'cover-' + cat;
+    cell.innerHTML = `
+      ${isCustom ? '<div class="cover-badge">Custom</div>' : ''}
+      ${isCustom ? `<img src="${customUrl}" alt="${CATEGORY_LABELS[cat]}" loading="lazy">` : `<div class="cover-placeholder">Default<br>Gradient</div>`}
+      <div class="cover-overlay">
+        <button class="cover-set-btn" title="Upload new cover" style="position:relative;overflow:hidden">
+          📁
+          <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%" onchange="uploadCoverImage('${cat}', this.files[0])">
+        </button>
+        ${isCustom ? `<button class="cover-del-btn" onclick="deleteCoverImage('${cat}')" title="Remove custom cover">🗑</button>` : ''}
+      </div>
+      <div class="cover-info">
+        <strong>${CATEGORY_LABELS[cat]}</strong>
+        <p>${isCustom ? 'Custom cover set' : 'Using default gradient'}</p>
+      </div>`;
+    grid.appendChild(cell);
+  });
+}
+
+async function uploadCoverImage(cat, file) {
+  if (!file) return;
+  toast(`Uploading cover for ${CATEGORY_LABELS[cat]}…`, 'info');
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('folder', 'srujith-bhaskar/covers');
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error('Cloudinary cover ' + res.status);
+    const data = await res.json();
+    if (!galleryData.covers) galleryData.covers = {};
+    galleryData.covers[cat] = data.secure_url;
+    markUnsaved();
+    renderCoversGrid();
+    toast(`Cover image for ${CATEGORY_LABELS[cat]} updated ✓`, 'success');
+  } catch(e) {
+    toast('Cover upload failed — try again', 'error');
+    console.error(e);
+  }
+}
+
+function deleteCoverImage(cat) {
+  document.getElementById('confirmModalBody').textContent = `Reset the cover for "${CATEGORY_LABELS[cat]}" back to the default gradient?`;
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Reset';
+  document.getElementById('confirmModalYes').onclick = () => {
+    if (galleryData.covers) delete galleryData.covers[cat];
+    closeModal();
+    renderCoversGrid();
+    markUnsaved();
+    toast(`Cover reset to default for ${CATEGORY_LABELS[cat]}`, 'info');
+  };
+}
+
+/* ══════════════════════════════════════
+   QUOTE PRICING MANAGER
+   galleryData.quotePricing = { serviceValue: price }
+   index.html applies this on load via window.__srujithApplyPricing()
+══════════════════════════════════════ */
+function currentPrice(value, defaultPrice) {
+  const v = galleryData.quotePricing?.[value];
+  return (v === undefined || v === null || v === '') ? defaultPrice : Number(v);
+}
+
+function renderPricingTab() {
+  const container = document.getElementById('pricingContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  PRICING_CATALOG.forEach(section => {
+    const sec = document.createElement('div');
+    sec.className = 'pricing-section';
+    const itemsHTML = section.items.map(item => {
+      const price = currentPrice(item.value, item.defaultPrice);
+      return `
+      <div class="pricing-item">
+        <span class="pricing-item-label">${item.label}</span>
+        <div class="pricing-item-value">
+          <span>₹</span>
+          <input type="number" min="0" step="500" class="pricing-input" id="price-${item.value}"
+            value="${price}" oninput="onPricingChange('${item.value}')">
+        </div>
+      </div>`;
+    }).join('');
+    sec.innerHTML = `<h3 class="pricing-section-title">${section.section}</h3><div class="pricing-grid">${itemsHTML}</div>`;
+    container.appendChild(sec);
+  });
+}
+
+function onPricingChange(value) {
+  const input = document.getElementById('price-' + value);
+  if (!input) return;
+  const num = Math.max(0, Number(input.value) || 0);
+  if (!galleryData.quotePricing) galleryData.quotePricing = {};
+  galleryData.quotePricing[value] = num;
+  markUnsaved();
+}
+
+function resetAllPricing() {
+  document.getElementById('confirmModalBody').textContent = 'Reset every quote price back to the original default? This cannot be undone once saved.';
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Reset All';
+  document.getElementById('confirmModalYes').onclick = () => {
+    galleryData.quotePricing = {};
+    closeModal();
+    renderPricingTab();
+    markUnsaved();
+    toast('All quote prices reset to defaults', 'info');
+  };
+}
+
+/* ══════════════════════════════════════
+   QUOTES
+   Stored in localStorage under QUOTES_KEY, written by index.html
+   when a client completes the quote builder.
+   Schema: [{id, name, phone, email, date, venue, items:[{label,price,qty}], timestamp, seen}]
+══════════════════════════════════════ */
+function getStoredQuotes() {
+  try { return JSON.parse(localStorage.getItem(QUOTES_KEY) || '[]'); } catch { return []; }
+}
+function saveStoredQuotes(quotes) {
+  localStorage.setItem(QUOTES_KEY, JSON.stringify(quotes));
+}
+
+function renderQuotesTab() {
+  const quotes = getStoredQuotes();
+  const container = document.getElementById('quotesContainer');
+  const badge = document.getElementById('quotesCountBadge');
+  const tabBadge = document.getElementById('quoteBadge');
+  const statEl = document.getElementById('statQuotes');
+  if (badge) badge.textContent = `${quotes.length} Quote${quotes.length !== 1 ? 's' : ''}`;
+  if (statEl) statEl.textContent = quotes.length;
+  if (tabBadge) tabBadge.style.display = quotes.some(q => q.seen === false) ? 'block' : 'none';
+  if (!container) return;
+  if (quotes.length === 0) {
+    container.innerHTML = `
+      <div class="quotes-empty">
+        <div style="font-size:36px;margin-bottom:16px;opacity:0.3">📋</div>
+        <p>No quote requests yet.</p>
+        <p style="margin-top:8px;font-size:12px;opacity:0.7">When clients complete the <strong>"Build Your Quote"</strong> form on your website, their details will appear here automatically.</p>
+      </div>`;
+    return;
+  }
+  const sorted = [...quotes].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+  container.innerHTML = sorted.map((q) => {
+    const total = q.items ? q.items.reduce((s, it) => s + (it.price * (it.qty || 1)), 0) : 0;
+    const ts = q.timestamp ? new Date(q.timestamp).toLocaleString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : 'Unknown date';
+    const itemsHTML = q.items && q.items.filter(it => it.price > 0).map(it =>
+      `<tr><td>${it.label || it.value}</td><td>${it.qty || 1}</td><td>₹${(it.price * (it.qty || 1)).toLocaleString('en-IN')}</td></tr>`
+    ).join('') || '<tr><td colspan="3" style="color:var(--muted)">No items</td></tr>';
+    const isNew = q.seen === false;
+    return `
+    <div class="quote-card" id="qcard-${q.id}">
+      <div class="quote-card-header" onclick="toggleQuoteCard('${q.id}')">
+        <div class="quote-client">
+          <span class="quote-client-name">${q.name || 'Unknown Client'}${isNew ? '<span class="quotes-new-indicator" title="New"></span>' : ''}</span>
+          <div class="quote-client-meta">
+            <span>📞 ${q.phone || '—'}</span>
+            <span>✉ ${q.email || '—'}</span>
+            ${q.date ? `<span>📅 ${q.date}</span>` : ''}
+            ${q.venue ? `<span>📍 ${q.venue}</span>` : ''}
+          </div>
+        </div>
+        <span class="quote-total-badge">₹${total.toLocaleString('en-IN')}</span>
+        <span class="quote-chevron">▼</span>
+      </div>
+      <div class="quote-card-body" id="qbody-${q.id}">
+        <div class="quote-details-grid">
+          <div class="qdg-cell"><div class="qdg-label">Client Name</div><div class="qdg-val">${q.name || '—'}</div></div>
+          <div class="qdg-cell"><div class="qdg-label">Phone</div><div class="qdg-val">${q.phone || '—'}</div></div>
+          <div class="qdg-cell"><div class="qdg-label">Email</div><div class="qdg-val">${q.email || '—'}</div></div>
+          <div class="qdg-cell"><div class="qdg-label">Wedding Date</div><div class="qdg-val">${q.date || '—'}</div></div>
+        </div>
+        <table class="quote-summary-table">
+          <thead><tr><th>Service</th><th>Qty</th><th>Price</th></tr></thead>
+          <tbody>${itemsHTML}</tbody>
+          <tfoot><tr><td colspan="2">Estimated Total</td><td>₹${total.toLocaleString('en-IN')}</td></tr></tfoot>
+        </table>
+        <div class="quote-card-actions">
+          <button class="q-action-btn whatsapp" onclick="whatsappQuote('${q.id}')">📱 WhatsApp Client</button>
+          <button class="q-action-btn delete" onclick="deleteQuote('${q.id}')">🗑 Delete</button>
+          <span class="quote-timestamp">Received: ${ts}</span>
         </div>
       </div>
-    </div>
-  `).join('');
-  wrap.querySelectorAll('.vi-save').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const idx = parseInt(btn.dataset.idx);
-      const input = wrap.querySelector(`.vi-title[data-idx="${idx}"]`);
-      record.videos[idx].title = input.value.trim();
-      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
-    });
-  });
-  wrap.querySelectorAll('.vi-del').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      record.videos.splice(parseInt(btn.dataset.idx),1);
-      renderVideos();
-      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
-    });
-  });
+    </div>`;
+  }).join('');
 }
-document.getElementById('videoFileInput').addEventListener('change', async (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  const statusEl = document.getElementById('videoStatus');
-  statusEl.textContent = 'Uploading…'; statusEl.className='upload-status';
-  try{
-    const url = await uploadToCloudinary(file, true);
-    if(record.videos.length >= 3) record.videos.shift();
-    record.videos.push({url, title:''});
-    renderVideos();
-    await saveRecord();
-    statusEl.textContent = 'Done ✓'; statusEl.className='upload-status ok';
-  }catch(err){
-    statusEl.textContent = err.message; statusEl.className='upload-status err';
-  }
-  e.target.value = '';
-});
 
-function renderAll(){
-  renderPortfolioSections();
-  renderCovers();
-  renderSnapshotThumbs();
-  renderVideos();
+function toggleQuoteCard(id) {
+  const header = document.querySelector(`#qcard-${id} .quote-card-header`);
+  const body = document.getElementById('qbody-' + id);
+  if (!header || !body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  header.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    const quotes = getStoredQuotes();
+    const q = quotes.find(q => q.id === id);
+    if (q && q.seen === false) { q.seen = true; saveStoredQuotes(quotes); renderQuotesTab(); }
+  }
 }
+
+function deleteQuote(id) {
+  document.getElementById('confirmModalBody').textContent = 'Delete this quote request? This cannot be undone.';
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Delete';
+  document.getElementById('confirmModalYes').onclick = () => {
+    const quotes = getStoredQuotes().filter(q => q.id !== id);
+    saveStoredQuotes(quotes);
+    closeModal();
+    renderQuotesTab();
+    toast('Quote deleted', 'info');
+  };
+}
+
+function clearAllQuotes() {
+  if (!getStoredQuotes().length) { toast('No quotes to clear', 'info'); return; }
+  document.getElementById('confirmModalBody').textContent = 'Clear ALL quote requests? This cannot be undone.';
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Clear All';
+  document.getElementById('confirmModalYes').onclick = () => {
+    saveStoredQuotes([]);
+    closeModal();
+    renderQuotesTab();
+    toast('All quotes cleared', 'info');
+  };
+}
+
+function whatsappQuote(id) {
+  const q = getStoredQuotes().find(q => q.id === id);
+  if (!q) return;
+  const total = q.items ? q.items.reduce((s, it) => s + (it.price * (it.qty || 1)), 0) : 0;
+  const itemLines = q.items ? q.items.filter(it => it.price > 0).map(it => `  • ${it.label}: ₹${(it.price * (it.qty || 1)).toLocaleString('en-IN')}`).join('\n') : '';
+  const msg = `Hello ${q.name || ''},\n\nThank you for your quote request with Srujith Bhaskar Photography!\n\nHere's your estimated package:\n${itemLines}\n\n*Total: ₹${total.toLocaleString('en-IN')}*\n\nWedding Date: ${q.date || '—'}\nVenue: ${q.venue || '—'}\n\nWe'd love to be part of your special day! Let's connect to customise your package.\n\n— Srujith Bhaskar Photography`;
+  const phone = (q.phone || '').replace(/[^0-9]/g, '');
+  window.open(`https://wa.me/${phone.startsWith('91') ? phone : '91' + phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* Poll localStorage for new quotes every 5 seconds */
+setInterval(() => {
+  const quotes = getStoredQuotes();
+  const statEl = document.getElementById('statQuotes');
+  const badge = document.getElementById('quoteBadge');
+  const countBadge = document.getElementById('quotesCountBadge');
+  if (statEl) statEl.textContent = quotes.length;
+  if (badge) badge.style.display = quotes.some(q => q.seen === false) ? 'block' : 'none';
+  if (countBadge) countBadge.textContent = `${quotes.length} Quote${quotes.length !== 1 ? 's' : ''}`;
+}, 5000);
+
+/* ══════════════════════════════════════
+   DELETE PHOTO
+══════════════════════════════════════ */
+function confirmDelete(cat, idx) {
+  document.getElementById('confirmModalBody').textContent =
+    `Remove this photo from "${CATEGORY_LABELS[cat]}"? It will disappear from the website after you save.`;
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Delete';
+  document.getElementById('confirmModalYes').onclick = () => {
+    galleryData[cat].splice(idx, 1);
+    closeModal();
+    renderGallery(cat);
+    updateStats();
+    markUnsaved();
+    document.getElementById('uploadCatSelect').dispatchEvent(new Event('change'));
+    toast('Photo removed', 'info');
+  };
+}
+
+function closeModal() { document.getElementById('confirmModal').classList.remove('open'); }
+
+/* ══════════════════════════════════════
+   STATS
+══════════════════════════════════════ */
+function updateStats() {
+  const portfolioCats = ['prewedding','engagement','haldi','wedding','reception','specials'];
+  const total = portfolioCats.reduce((s, k) => s + (galleryData[k]?.length || 0), 0);
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statSnap').textContent = galleryData.snapshot?.length || 0;
+  document.getElementById('statVideos').textContent = (galleryData.videos || []).filter(Boolean).length;
+  document.getElementById('statQuotes').textContent = getStoredQuotes().length;
+}
+
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function markUnsaved() {
+  hasUnsavedChanges = true;
+  document.getElementById('saveBanner').classList.add('visible');
+}
+function showLoading(t) { document.getElementById('loadingText').textContent = t; document.getElementById('loadingOverlay').classList.add('active'); }
+function hideLoading() { document.getElementById('loadingOverlay').classList.remove('active'); }
+function toast(msg, type = 'info') {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.getElementById('toastContainer').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+window.addEventListener('beforeunload', e => { if (hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; } });
 </script>
 </body>
 </html>
