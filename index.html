@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Srujith Bhaskar Photography — Framed in Forever</title>
 <meta name="description" content="Srujith Bhaskar Photography — cinematic wedding photography & films, Hyderabad.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -18,18 +18,19 @@
   --border-q:#EAE0DD; --border-sel:#ab8850; --crimson:#8c2440;
   --shadow-sm:0 2px 12px rgba(92,23,48,0.06); --shadow-md:0 8px 32px rgba(92,23,48,0.1);
   --radius:10px; --radius-lg:16px;
-  --f-script:'DM Serif Display', Georgia, serif; --f-body:'Jost',sans-serif; --f-ed:'Cormorant Garamond',serif;
+  --f-script:'Poppins', sans-serif; --f-body:'Jost',sans-serif; --f-ed:'Cormorant Garamond',serif;
   --transition:0.28s cubic-bezier(.4,0,.2,1); --sidebar-w:300px;
 }
 html{scroll-behavior:smooth;}
 body{background:var(--white);color:var(--ink);font-family:var(--f-body);overflow-x:hidden;}
+.nav-logo-name,.hero-script,.about-photo span,.about-title,.ag-n,.why-title,.wp-label,.portfolio-title,.panel-title,.snapshot-title,.dv-title,.journey-title,.enquiry-title,.footer-logo,.step-heading,.quote-intro-heading,.final-heading,.summary-title,.tp-title,.tc-section-num,.tc-section-name,.tc-accept-title{font-weight:800;letter-spacing:-.01em;}
 .section-tag{font-size:9px;letter-spacing:.5em;text-transform:uppercase;color:var(--rose);font-weight:500;display:block;margin-bottom:14px;}
 .section-rule{width:34px;height:1px;background:var(--gold);opacity:.6;margin:0 auto 24px;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 32px;height:80px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;flex-direction:column;align-items:center;text-decoration:none;gap:0;}
-.nav-logo-name{font-family:var(--f-script);font-size:30px;color:var(--maroon);line-height:1;}
+.nav-logo-name{font-family:var(--f-script);font-size:20px;letter-spacing:.02em;color:var(--maroon);line-height:1;}
 .nav-logo-tag{font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:2px;}
 .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;position:absolute;right:32px;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--maroon);border-radius:2px;transition:.3s;}
@@ -46,7 +47,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 32px;height:80px;d
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 20%,rgba(171,136,80,0.14) 0%,transparent 65%);}
 .hero-content{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 32px 60px;text-align:center;}
 .hero-kicker{font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold-light);margin-bottom:22px;opacity:0;animation:cinReveal .9s ease .2s forwards;}
-.hero-script{font-family:var(--f-script);font-weight:400;font-size:clamp(48px,7vw,92px);letter-spacing:.01em;color:#fff;line-height:1.05;opacity:0;animation:cinReveal .9s ease .35s forwards;}
+.hero-script{font-family:var(--f-script);font-size:clamp(44px,6.5vw,84px);letter-spacing:-.01em;color:#fff;line-height:1.05;opacity:0;animation:cinReveal .9s ease .35s forwards;}
 .hero-sub{font-family:var(--f-ed);font-style:italic;font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,.65);margin-top:14px;opacity:0;animation:cinReveal .9s ease .5s forwards;}
 @keyframes cinReveal{from{opacity:0;transform:translateY(16px);filter:blur(6px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
 .hero-btns{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;animation:cinReveal .9s ease .7s forwards;}
@@ -128,6 +129,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 32px;height:80px;d
 .ep-txt{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);opacity:.5;}
 
 /* SNAPSHOT SCROLL */
+/* FILMS / VIDEO PORTFOLIO */
+.video-section{position:relative;background:var(--maroon);padding:100px 80px 110px;overflow:hidden;}
+.video-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(171,136,80,.1) 0%,transparent 55%);}
+.video-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;}
+.video-header{text-align:center;margin-bottom:60px;}
+.video-title{font-family:var(--f-script);font-size:clamp(38px,4.5vw,62px);color:#fff;line-height:1.05;margin-bottom:12px;}
+.video-title em{font-style:normal;color:var(--gold-light);}
+.video-sub{font-family:var(--f-ed);font-style:italic;font-size:16px;color:rgba(255,255,255,.4);}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.video-card{position:relative;transition:transform .4s cubic-bezier(.22,1,.36,1);}
+.video-card:hover{transform:translateY(-5px);}
+.video-wrap{position:relative;overflow:hidden;border-radius:2px;}
+.video-wrap video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;}
+.video-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(20,8,14,.7) 0%,transparent 50%);}
+.video-meta{position:absolute;bottom:0;left:0;right:0;z-index:4;padding:18px 16px;pointer-events:none;}
+.vm-num{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-light);margin-bottom:4px;}
+.vm-title{font-family:var(--f-ed);font-size:17px;color:#fff;font-style:italic;line-height:1.2;}
+.video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;width:48px;height:48px;border-radius:50%;background:rgba(171,136,80,.8);display:flex;align-items:center;justify-content:center;transition:.3s;pointer-events:none;}
+.video-play svg{width:16px;height:16px;fill:#2a1620;margin-left:2px;}
+.video-card:hover .video-play{background:var(--gold-light);transform:translate(-50%,-50%) scale(1.1);}
+.video-empty{aspect-ratio:9/16;background:rgba(255,255,255,.04);border:1px dashed rgba(171,136,80,.22);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;}
+.video-empty p{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:center;}
+@media (max-width:900px){.video-section{padding:80px 24px;}.video-grid{grid-template-columns:1fr;gap:20px;}}
+
 .snapshot{position:relative;background:var(--white);padding:100px 0 110px;border-top:1px solid var(--border);}
 .snapshot-header{text-align:center;margin-bottom:56px;padding:0 80px;}
 .snapshot-title{font-family:var(--f-script);font-size:clamp(46px,5.5vw,68px);color:var(--maroon);margin-bottom:14px;}
@@ -312,6 +337,16 @@ footer{position:relative;background:#2a1620;padding:70px 80px 0;}
 }
 .hidden{display:none!important;}
 
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;background:rgba(16,7,11,.97);backdrop-filter:blur(14px);}
+.lightbox.open{display:flex;}
+.lb-img-wrap img{max-width:90vw;max-height:85vh;object-fit:contain;display:block;border:1px solid rgba(171,136,80,.15);}
+.lb-close{position:fixed;top:26px;right:32px;width:42px;height:42px;border-radius:50%;background:rgba(171,136,80,.12);border:1px solid rgba(171,136,80,.25);display:flex;align-items:center;justify-content:center;font-size:17px;color:rgba(255,255,255,.7);transition:.3s;cursor:pointer;}
+.lb-close:hover{background:var(--rose);}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px;color:rgba(255,255,255,.65);transition:.3s;cursor:pointer;}
+.lb-nav:hover{background:rgba(171,136,80,.18);border-color:var(--gold);color:var(--gold-light);}
+.lb-prev{left:26px;} .lb-next{right:26px;}
+
 /* FLORAL BACKGROUND ACCENTS */
 .floral-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .floral-bg img{position:absolute;opacity:.6;}
@@ -362,6 +397,7 @@ footer{position:relative;background:#2a1620;padding:70px 80px 0;}
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about" onclick="closeMobileMenu()">About</a>
     <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
+    <a href="#films" onclick="closeMobileMenu()">Films</a>
     <a href="#journey" onclick="closeMobileMenu()">Packages</a>
     <a href="#enquiry" onclick="closeMobileMenu()">Contact</a>
     <a href="#terms" onclick="showTerms(event);closeMobileMenu()">Terms</a>
@@ -461,6 +497,22 @@ footer{position:relative;background:#2a1620;padding:70px 80px 0;}
     </div>
   </section>
 
+  <section class="video-section" id="films">
+    <div class="video-inner">
+      <div class="video-header">
+        <span class="section-tag reveal" style="color:var(--gold-light)">Cinematic Films</span>
+        <h2 class="video-title reveal d1">Love <em>in Motion</em></h2>
+        <div class="section-rule reveal d1" style="background:var(--gold-light)"></div>
+        <p class="video-sub reveal d2">Every film we craft is a window back into the most beautiful day of your life</p>
+      </div>
+      <div class="video-grid" id="videoGrid">
+        <div class="video-card reveal d1"><div class="video-wrap"><div class="video-empty"><p>Film · 01<br>Coming Soon</p></div></div></div>
+        <div class="video-card reveal d2"><div class="video-wrap"><div class="video-empty"><p>Film · 02<br>Coming Soon</p></div></div></div>
+        <div class="video-card reveal d3"><div class="video-wrap"><div class="video-empty"><p>Film · 03<br>Coming Soon</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="snapshot" id="gallery">
     <div class="snapshot-header">
       <span class="section-tag reveal">From Our Lens</span>
@@ -549,6 +601,7 @@ footer{position:relative;background:#2a1620;padding:70px 80px 0;}
         <ul class="footer-links">
           <li><a href="#about">About Us</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#films">Films</a></li>
           <li><a href="#quote" onclick="showQuote(event)">Packages</a></li>
           <li><a href="#enquiry">Contact</a></li>
           <li><a href="#terms" onclick="showTerms(event)">Terms &amp; Conditions</a></li>
@@ -567,6 +620,14 @@ footer{position:relative;background:#2a1620;padding:70px 80px 0;}
       <p class="footer-made">Framed in Forever</p>
     </div>
   </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-nav lb-prev" id="lb-prev">‹</div>
+  <div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+  <div class="lb-nav lb-next" id="lb-next">›</div>
+  <div class="lb-close" id="lb-close">✕</div>
 </div>
 
 <!-- TERMS PAGE -->
@@ -782,7 +843,7 @@ function initMainSite(){
     btn.addEventListener('click',()=>{accordion.classList.remove('open');thumbs.forEach(t=>t.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));});
   });
 
-  // Placeholder "coming soon" grids until JSONBin content is added
+  // Fallback "coming soon" grids — overwritten by loadPortfolioFromJSONBin() once the bin is connected
   ['engagement','haldi','wedding','reception','prewedding','specials'].forEach(cat=>{
     const grid=document.getElementById('grid-'+cat);
     if(!grid)return;
@@ -790,12 +851,9 @@ function initMainSite(){
     for(let i=0;i<10;i++)html+='<div class="photo-cell"><p class="ep-txt">&#128247;<br>Coming soon</p></div>';
     grid.innerHTML=html;
   });
+  renderSnapshotScroll([]);
   const snapTrack=document.getElementById('snapshotTrack');
   if(snapTrack){
-    let html='';
-    for(let i=0;i<8;i++)html+='<a href="#" class="snap-card"><p class="ep-txt">&#128247;<br>Coming soon</p></a>';
-    html+='<div class="snap-stat"><div><p style="font-family:var(--f-script);font-size:26px;color:#fff;line-height:1.2;margin-bottom:8px">Moments<br>Told</p><span style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75)">Follow Along</span></div></div>';
-    snapTrack.innerHTML=html;
     let scrolling=true,speed=2.2,raf;
     function autoScroll(){if(!scrolling){raf=requestAnimationFrame(autoScroll);return;}snapTrack.scrollLeft+=speed;if(snapTrack.scrollLeft>=snapTrack.scrollWidth-snapTrack.clientWidth-2)snapTrack.scrollLeft=0;raf=requestAnimationFrame(autoScroll);}
     snapTrack.addEventListener('mouseenter',()=>{scrolling=false;});
@@ -891,6 +949,119 @@ function initQuote(){
     window.open('https://wa.me/918520008666?text='+encodeURIComponent(msg),'_blank');
   });
 }
+// ── JSONBIN PORTFOLIO + VIDEO + COVERS LOADER ──
+// Fill these in once you've created your bin at https://jsonbin.io
+const JSONBIN_BIN_ID = '6a75a1b8da38895dfec567ec'; // public read only — no key needed here
+
+async function loadPortfolioFromJSONBin(){
+  if(!JSONBIN_BIN_ID) return; // not connected yet — fallback placeholders stay as-is
+  try{
+    const res=await fetch('https://api.jsonbin.io/v3/b/'+JSONBIN_BIN_ID+'/latest');
+    if(!res.ok) throw new Error('JSONBin '+res.status);
+    const data=await res.json();
+    const record=data.record;
+    ['prewedding','engagement','haldi','wedding','reception','specials'].forEach(cat=>{
+      if(record[cat] && record[cat].length>0) renderPanelGrid('grid-'+cat, record[cat]);
+    });
+    if(record.snapshot && record.snapshot.length>0) renderSnapshotScroll(record.snapshot);
+    if(record.videos && record.videos.length>0) renderVideoGrid(record.videos);
+    if(record.covers && typeof record.covers==='object'){
+      Object.keys(record.covers).forEach(cat=>{
+        const thumb=document.querySelector(`.pthumb[data-panel="${cat}"]`);
+        if(thumb && record.covers[cat]){
+          thumb.style.backgroundImage=`url('${record.covers[cat].replace('/upload/','/upload/q_auto,f_auto,w_500/')}')`;
+          thumb.style.backgroundSize='cover';
+          thumb.style.backgroundPosition='center';
+        }
+      });
+    }
+  }catch(e){ console.warn('Portfolio load error:', e); }
+}
+
+function renderPanelGrid(gridId, urls){
+  const grid=document.getElementById(gridId); if(!grid) return;
+  const MAX=10; let html='';
+  urls.slice(0,MAX).forEach(url=>{
+    const opt=url.replace('/upload/','/upload/q_auto,f_auto,w_700/');
+    html+='<div class="photo-cell"><img src="'+opt+'" alt="" loading="lazy" style="cursor:zoom-in" onclick="portfolioLightboxOpen(this)"></div>';
+  });
+  for(let i=urls.length;i<MAX;i++) html+='<div class="photo-cell"><p class="ep-txt">&#128247;<br>Coming soon</p></div>';
+  grid.innerHTML=html;
+}
+
+function renderSnapshotScroll(urls){
+  const track=document.getElementById('snapshotTrack'); if(!track) return;
+  const INSTAGRAM='https://www.instagram.com/';
+  let html='';
+  if(urls.length===0){
+    for(let i=0;i<8;i++) html+='<a href="'+INSTAGRAM+'" target="_blank" rel="noopener" class="snap-card"><p class="ep-txt">&#128247;<br>Coming soon</p></a>';
+  } else {
+    urls.forEach(url=>{
+      const opt=url.replace('/upload/','/upload/q_auto,f_auto,w_600/');
+      html+='<a href="'+INSTAGRAM+'" target="_blank" rel="noopener" class="snap-card"><img src="'+opt+'" alt="" loading="lazy"></a>';
+    });
+  }
+  html+='<div class="snap-stat"><div><p style="font-family:var(--f-script);font-weight:800;font-size:22px;color:#fff;line-height:1.2;margin-bottom:8px">Moments<br>Told</p><a href="'+INSTAGRAM+'" target="_blank" rel="noopener" style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75);text-decoration:none;font-family:var(--f-body)">Follow Along →</a></div></div>';
+  track.innerHTML=html;
+}
+
+const FILM_TITLES=['A Wedding to Remember','Moments of Gold','Forever Begins Here'];
+function renderVideoGrid(videos){
+  const grid=document.getElementById('videoGrid'); if(!grid) return;
+  const MAX=3; let html='';
+  for(let i=0;i<MAX;i++){
+    const v=videos[i];
+    if(v){
+      html+='<div class="video-card reveal d'+(i+1)+'"><div class="video-wrap"><video muted loop playsinline preload="none"><source data-src="'+v.url+'" type="video/mp4"></video></div><div class="video-overlay"></div><div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div><div class="video-meta"><p class="vm-num">Film · 0'+(i+1)+'</p><p class="vm-title">'+(v.title||FILM_TITLES[i])+'</p></div></div>';
+    } else {
+      html+='<div class="video-card reveal d'+(i+1)+'"><div class="video-wrap"><div class="video-empty"><p>Film · 0'+(i+1)+'<br>Coming Soon</p></div></div></div>';
+    }
+  }
+  grid.innerHTML=html;
+  const videoCards=grid.querySelectorAll('.video-card');
+  const videoObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const source=e.target.querySelector('source[data-src]');if(source&&!source.src){source.src=source.dataset.src;e.target.querySelector('video')&&e.target.querySelector('video').load();}videoObs.unobserve(e.target);}});},{rootMargin:'200px'});
+  videoCards.forEach(card=>{
+    videoObs.observe(card);
+    const video=card.querySelector('video'); if(!video) return;
+    const btn=card.querySelector('.video-play'); let playing=false;
+    card.addEventListener('click',()=>{
+      const source=video.querySelector('source[data-src]'); if(source&&!source.src){source.src=source.dataset.src;video.load();}
+      if(playing){video.pause();if(btn)btn.style.opacity='1';playing=false;}
+      else{videoCards.forEach(c=>{const v2=c.querySelector('video'),b2=c.querySelector('.video-play');if(v2&&c!==card)v2.pause();if(b2)b2.style.opacity='1';});video.play().catch(()=>{});if(btn)btn.style.opacity='0';playing=true;}
+    });
+    video.addEventListener('ended',()=>{if(btn)btn.style.opacity='1';playing=false;});
+  });
+  const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:.07});
+  videoCards.forEach(el=>revObs.observe(el));
+}
+
+let lbImages=[], lbIndex=0;
+function portfolioLightboxOpen(imgEl){
+  const grid=imgEl.closest('.photo-grid'); if(!grid) return;
+  const allImgs=[...grid.querySelectorAll('.photo-cell img')];
+  lbImages=allImgs.map(i=>i.src.replace('/upload/q_auto,f_auto,w_700/','/upload/q_auto,f_auto/'));
+  lbIndex=allImgs.indexOf(imgEl); if(lbIndex<0) lbIndex=0;
+  showLbImage();
+}
+function showLbImage(){
+  const lb=document.getElementById('lightbox'); if(!lb) return;
+  const img=document.getElementById('lb-img'); if(img){img.src=lbImages[lbIndex]||'';lb.classList.add('open');}
+}
+
+document.addEventListener('DOMContentLoaded', loadPortfolioFromJSONBin);
+document.addEventListener('DOMContentLoaded', () => {
+  const lb=document.getElementById('lightbox'), prev=document.getElementById('lb-prev'), next=document.getElementById('lb-next'), close=document.getElementById('lb-close');
+  if(prev) prev.addEventListener('click',()=>{lbIndex=(lbIndex-1+lbImages.length)%lbImages.length;showLbImage();});
+  if(next) next.addEventListener('click',()=>{lbIndex=(lbIndex+1)%lbImages.length;showLbImage();});
+  if(close) close.addEventListener('click',()=>lb&&lb.classList.remove('open'));
+  if(lb) lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+  document.addEventListener('keydown',e=>{
+    if(!lb||!lb.classList.contains('open'))return;
+    if(e.key==='ArrowLeft'){lbIndex=(lbIndex-1+lbImages.length)%lbImages.length;showLbImage();}
+    if(e.key==='ArrowRight'){lbIndex=(lbIndex+1)%lbImages.length;showLbImage();}
+    if(e.key==='Escape')lb.classList.remove('open');
+  });
+});
 </script>
 </body>
 </html>
