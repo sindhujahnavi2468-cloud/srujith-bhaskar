@@ -966,6 +966,7 @@ async function loadPortfolioFromJSONBin(){
     });
     if(record.snapshot && record.snapshot.length>0) renderSnapshotScroll(record.snapshot);
     if(record.videos && record.videos.length>0) renderVideoGrid(record.videos);
+    if(record.hero && record.hero.url) applyHeroBackground(record.hero);
     if(record.covers && typeof record.covers==='object'){
       Object.keys(record.covers).forEach(cat=>{
         const thumb=document.querySelector(`.pthumb[data-panel="${cat}"]`);
