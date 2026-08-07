@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Srujith Bhaskar Photography</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blush-soft:#f6eeef; --cream:#f9f5f0; --white:#ffffff;
+  --maroon:#5c1730; --rose:#7f3049; --rose-pale:rgba(92,23,48,0.06);
+  --gold:#ab8850; --gold-light:#cfb37e; --ink:#241318; --muted:#8a7580;
+  --border:rgba(92,23,48,0.14);
+  --f-heading:'Poppins',sans-serif; --f-body:'Jost',sans-serif;
+  --ok:#2f7d4f; --err:#b0243c;
+}
+body{background:var(--cream);color:var(--ink);font-family:var(--f-body);min-height:100vh;}
+header{background:var(--maroon);color:#fff;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+header h1{font-family:var(--f-heading);font-weight:800;font-size:20px;letter-spacing:.01em;}
+header h1 span{color:var(--gold-light);}
+.conn-status{font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;background:rgba(255,255,255,.08);}
+.conn-status.ok{color:#bfe8cc;background:rgba(47,125,79,.25);}
+.conn-status.bad{color:#f3c1cc;background:rgba(176,36,60,.25);}
+
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 100px;}
+
+.setup-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:26px 28px;margin-bottom:32px;}
+.setup-card h2{font-family:var(--f-heading);font-weight:800;font-size:18px;color:var(--maroon);margin-bottom:6px;}
+.setup-card p{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.setup-row{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600;}
+.field input{padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--f-body);font-size:14px;background:var(--cream);outline:none;}
+.field input:focus{border-color:var(--gold);background:var(--white);}
+.btn{font-family:var(--f-body);font-size:13px;font-weight:600;letter-spacing:.03em;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;transition:.25s;white-space:nowrap;}
+.btn-primary{background:var(--maroon);color:#fff;}
+.btn-primary:hover{background:var(--rose);}
+.btn-ghost{background:var(--rose-pale);color:var(--maroon);border:1px solid var(--border);}
+.btn-ghost:hover{background:var(--blush-soft);}
+.btn-sm{padding:8px 14px;font-size:12px;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0;}
+.tab-btn{background:none;border:none;padding:12px 18px;font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;}
+.tab-btn.active{color:var(--maroon);font-weight:600;border-bottom-color:var(--gold);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.section-block{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px 26px;margin-bottom:20px;}
+.section-block h3{font-family:var(--f-heading);font-weight:800;font-size:16px;color:var(--maroon);margin-bottom:4px;}
+.section-block .sub{font-size:12.5px;color:var(--muted);margin-bottom:16px;}
+.upload-row{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
+.file-label{display:inline-flex;align-items:center;gap:8px;background:var(--rose-pale);border:1px dashed var(--border);color:var(--maroon);padding:10px 18px;border-radius:8px;font-size:13px;cursor:pointer;transition:.2s;}
+.file-label:hover{background:var(--blush-soft);}
+.file-label input{display:none;}
+.upload-status{font-size:12px;color:var(--muted);}
+.upload-status.ok{color:var(--ok);}
+.upload-status.err{color:var(--err);}
+
+.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;}
+.thumb{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--blush-soft);border:1px solid var(--border);}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.thumb .del{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(20,8,14,.65);color:#fff;border:none;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.thumb .del:hover{background:var(--err);}
+.thumb-empty{grid-column:1/-1;font-size:12.5px;color:var(--muted);padding:18px 0;text-align:center;}
+
+.cover-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;}
+.cover-item{text-align:center;}
+.cover-item .cover-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px;}
+.cover-preview{aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:var(--blush-soft);border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;justify-content:center;}
+.cover-preview img{width:100%;height:100%;object-fit:cover;}
+.cover-preview .none{font-size:11px;color:var(--muted);}
+
+.video-item{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);}
+.video-item:last-child{border-bottom:none;}
+.video-item video{width:70px;height:100px;object-fit:cover;border-radius:6px;background:#000;}
+.video-item .vi-body{flex:1;}
+.video-item input{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:6px;background:var(--cream);}
+.video-item .vi-actions{display:flex;gap:8px;}
+
+.toast{position:fixed;bottom:24px;right:24px;background:var(--maroon);color:#fff;padding:12px 22px;border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;transform:translateY(0);}
+.toast.err{background:var(--err);}
+
+.locked-note{font-size:13px;color:var(--muted);padding:40px 0;text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Srujith Bhaskar <span>Admin</span></h1>
+  <div class="conn-status bad" id="connStatus">Not Connected</div>
+</header>
+
+<div class="wrap">
+
+  <div class="setup-card">
+    <h2>Connect Your Data</h2>
+    <p>Paste your JSONBin Bin ID and X-Master-Key below (from jsonbin.io). This is saved in this browser only — you'll need to re-enter it if you use a different device or browser.</p>
+    <div class="setup-row">
+      <div class="field"><label>JSONBin Bin ID</label><input type="text" id="binIdInput" placeholder="e.g. 66f1a2b3c4d5e6f7..."></div>
+      <div class="field"><label>X-Master-Key</label><input type="password" id="masterKeyInput" placeholder="$2a$10$..."></div>
+      <button class="btn btn-primary" id="connectBtn">Connect &amp; Load</button>
+    </div>
+  </div>
+
+  <div id="adminBody" class="hidden-body" style="display:none">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="portfolio">Portfolio</button>
+      <button class="tab-btn" data-tab="covers">Cover Photos</button>
+      <button class="tab-btn" data-tab="snapshot">Snapshot Gallery</button>
+      <button class="tab-btn" data-tab="videos">Films / Videos</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-portfolio">
+      <div id="portfolioSections"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-covers">
+      <div class="section-block">
+        <h3>Portfolio Cover Photos</h3>
+        <p class="sub">One cover image per collection — shown as the thumbnail on the main portfolio grid.</p>
+        <div class="cover-grid" id="coverGrid"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-snapshot">
+      <div class="section-block">
+        <h3>Snapshot Gallery</h3>
+        <p class="sub">The scrolling "Frames We Love" strip on the homepage. Each image links out to your Instagram.</p>
+        <div class="upload-row">
+          <label class="file-label">📤 Upload Images<input type="file" id="snapshotFileInput" accept="image/*" multiple></label>
+          <span class="upload-status" id="snapshotStatus"></span>
+        </div>
+        <div class="thumb-grid" id="snapshotThumbs"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-videos">
+      <div class="section-block">
+        <h3>Cinematic Films</h3>
+        <p class="sub">Up to 3 vertical (9:16) films shown in the "Love in Motion" section. Uploading a 4th replaces the oldest.</p>
+        <div class="upload-row">
+          <label class="file-label">📤 Upload Video<input type="file" id="videoFileInput" accept="video/*"></label>
+          <span class="upload-status" id="videoStatus"></span>
+        </div>
+        <div id="videoList"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CLOUD_NAME = 'nqapapkj';
+const UPLOAD_PRESET = 'srujith bhaskar';
+
+const CATEGORIES = [
+  {key:'prewedding', label:'Pre-Wedding'},
+  {key:'engagement', label:'Engagement'},
+  {key:'haldi', label:'Haldi'},
+  {key:'wedding', label:'Wedding Day'},
+  {key:'reception', label:'Reception'},
+  {key:'specials', label:'Specials'},
+];
+
+let BIN_ID = localStorage.getItem('sb_bin_id') || '';
+let MASTER_KEY = localStorage.getItem('sb_master_key') || '';
+let record = null;
+
+document.getElementById('binIdInput').value = BIN_ID;
+document.getElementById('masterKeyInput').value = MASTER_KEY;
+
+function showToast(msg, isErr){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' err' : '');
+  setTimeout(()=>{ t.className = 'toast'; }, 2600);
+}
+
+function setConnStatus(ok, label){
+  const el = document.getElementById('connStatus');
+  el.textContent = label;
+  el.className = 'conn-status ' + (ok ? 'ok' : 'bad');
+}
+
+async function fetchRecord(){
+  const res = await fetch('https://api.jsonbin.io/v3/b/'+BIN_ID+'/latest', {headers:{'X-Master-Key': MASTER_KEY}});
+  if(!res.ok) throw new Error('Could not load bin ('+res.status+')');
+  const data = await res.json();
+  return data.record;
+}
+
+async function saveRecord(){
+  const res = await fetch('https://api.jsonbin.io/v3/b/'+BIN_ID, {
+    method:'PUT',
+    headers:{'Content-Type':'application/json','X-Master-Key': MASTER_KEY},
+    body: JSON.stringify(record)
+  });
+  if(!res.ok) throw new Error('Save failed ('+res.status+')');
+  showToast('Saved ✓');
+}
+
+function ensureShape(rec){
+  rec = rec || {};
+  CATEGORIES.forEach(c => { if(!Array.isArray(rec[c.key])) rec[c.key] = []; });
+  if(!Array.isArray(rec.snapshot)) rec.snapshot = [];
+  if(!Array.isArray(rec.videos)) rec.videos = [];
+  if(typeof rec.covers !== 'object' || !rec.covers) rec.covers = {};
+  CATEGORIES.forEach(c => { if(!rec.covers[c.key]) rec.covers[c.key] = ''; });
+  return rec;
+}
+
+document.getElementById('connectBtn').addEventListener('click', async () => {
+  BIN_ID = document.getElementById('binIdInput').value.trim();
+  MASTER_KEY = document.getElementById('masterKeyInput').value.trim();
+  if(!BIN_ID || !MASTER_KEY){ showToast('Enter both the Bin ID and Master Key', true); return; }
+  localStorage.setItem('sb_bin_id', BIN_ID);
+  localStorage.setItem('sb_master_key', MASTER_KEY);
+  try{
+    record = ensureShape(await fetchRecord());
+    setConnStatus(true, 'Connected');
+    document.getElementById('adminBody').style.display = 'block';
+    renderAll();
+    showToast('Loaded your data ✓');
+  }catch(e){
+    setConnStatus(false, 'Connection Failed');
+    showToast(e.message, true);
+  }
+});
+
+// auto-connect if credentials already saved
+window.addEventListener('DOMContentLoaded', () => {
+  if(BIN_ID && MASTER_KEY) document.getElementById('connectBtn').click();
+  wireTabs();
+});
+
+function wireTabs(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+async function uploadToCloudinary(file, isVideo){
+  const url = 'https://api.cloudinary.com/v1_1/'+CLOUD_NAME+'/'+(isVideo?'video':'image')+'/upload';
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', UPLOAD_PRESET);
+  const res = await fetch(url, {method:'POST', body:fd});
+  if(!res.ok){
+    const err = await res.text();
+    throw new Error('Cloudinary upload failed: '+err.slice(0,200));
+  }
+  const data = await res.json();
+  return data.secure_url;
+}
+
+// ── PORTFOLIO ──
+function renderPortfolioSections(){
+  const wrap = document.getElementById('portfolioSections');
+  wrap.innerHTML = '';
+  CATEGORIES.forEach(cat=>{
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    block.innerHTML = `
+      <h3>${cat.label}</h3>
+      <p class="sub">Photos shown in this collection on the portfolio page.</p>
+      <div class="upload-row">
+        <label class="file-label">📤 Upload Images<input type="file" data-cat="${cat.key}" class="portfolio-file" accept="image/*" multiple></label>
+        <span class="upload-status" id="status-${cat.key}"></span>
+      </div>
+      <div class="thumb-grid" id="thumbs-${cat.key}"></div>
+    `;
+    wrap.appendChild(block);
+  });
+  document.querySelectorAll('.portfolio-file').forEach(input=>{
+    input.addEventListener('change', async (e)=>{
+      const cat = input.dataset.cat;
+      const files = Array.from(e.target.files);
+      if(!files.length) return;
+      const statusEl = document.getElementById('status-'+cat);
+      statusEl.textContent = 'Uploading 0/'+files.length+'…';
+      statusEl.className = 'upload-status';
+      let done = 0;
+      for(const file of files){
+        try{
+          const url = await uploadToCloudinary(file, false);
+          record[cat].push(url);
+          done++;
+          statusEl.textContent = 'Uploading '+done+'/'+files.length+'…';
+        }catch(err){
+          statusEl.textContent = err.message;
+          statusEl.className = 'upload-status err';
+        }
+      }
+      renderPortfolioThumbs(cat);
+      try{ await saveRecord(); statusEl.textContent='Done ✓'; statusEl.className='upload-status ok'; }
+      catch(err){ statusEl.textContent = err.message; statusEl.className='upload-status err'; }
+      input.value = '';
+    });
+  });
+  CATEGORIES.forEach(c => renderPortfolioThumbs(c.key));
+}
+
+function renderPortfolioThumbs(cat){
+  const grid = document.getElementById('thumbs-'+cat);
+  const urls = record[cat] || [];
+  if(urls.length === 0){ grid.innerHTML = '<p class="thumb-empty">No photos yet</p>'; return; }
+  grid.innerHTML = urls.map((url,i)=>`
+    <div class="thumb">
+      <img src="${url.replace('/upload/','/upload/q_auto,f_auto,w_300/')}" alt="" loading="lazy">
+      <button class="del" data-cat="${cat}" data-idx="${i}">✕</button>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.del').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const c = btn.dataset.cat, idx = parseInt(btn.dataset.idx);
+      record[c].splice(idx,1);
+      renderPortfolioThumbs(c);
+      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
+    });
+  });
+}
+
+// ── COVERS ──
+function renderCovers(){
+  const grid = document.getElementById('coverGrid');
+  grid.innerHTML = CATEGORIES.map(cat=>`
+    <div class="cover-item">
+      <p class="cover-label">${cat.label}</p>
+      <div class="cover-preview" id="coverPreview-${cat.key}">
+        ${record.covers[cat.key] ? `<img src="${record.covers[cat.key].replace('/upload/','/upload/q_auto,f_auto,w_300/')}" alt="">` : '<span class="none">No cover set</span>'}
+      </div>
+      <label class="file-label btn-sm">📤 Set Cover<input type="file" class="cover-file" data-cat="${cat.key}" accept="image/*"></label>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.cover-file').forEach(input=>{
+    input.addEventListener('change', async (e)=>{
+      const cat = input.dataset.cat;
+      const file = e.target.files[0];
+      if(!file) return;
+      try{
+        const url = await uploadToCloudinary(file, false);
+        record.covers[cat] = url;
+        renderCovers();
+        await saveRecord();
+      }catch(err){ showToast(err.message, true); }
+      input.value = '';
+    });
+  });
+}
+
+// ── SNAPSHOT ──
+function renderSnapshotThumbs(){
+  const grid = document.getElementById('snapshotThumbs');
+  const urls = record.snapshot || [];
+  if(urls.length === 0){ grid.innerHTML = '<p class="thumb-empty">No photos yet</p>'; return; }
+  grid.innerHTML = urls.map((url,i)=>`
+    <div class="thumb">
+      <img src="${url.replace('/upload/','/upload/q_auto,f_auto,w_300/')}" alt="" loading="lazy">
+      <button class="del" data-idx="${i}">✕</button>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.del').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      record.snapshot.splice(parseInt(btn.dataset.idx),1);
+      renderSnapshotThumbs();
+      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
+    });
+  });
+}
+document.getElementById('snapshotFileInput').addEventListener('change', async (e)=>{
+  const files = Array.from(e.target.files);
+  if(!files.length) return;
+  const statusEl = document.getElementById('snapshotStatus');
+  statusEl.textContent = 'Uploading 0/'+files.length+'…'; statusEl.className='upload-status';
+  let done=0;
+  for(const file of files){
+    try{ const url = await uploadToCloudinary(file, false); record.snapshot.push(url); done++; statusEl.textContent='Uploading '+done+'/'+files.length+'…'; }
+    catch(err){ statusEl.textContent = err.message; statusEl.className='upload-status err'; }
+  }
+  renderSnapshotThumbs();
+  try{ await saveRecord(); statusEl.textContent='Done ✓'; statusEl.className='upload-status ok'; }
+  catch(err){ statusEl.textContent = err.message; statusEl.className='upload-status err'; }
+  e.target.value = '';
+});
+
+// ── VIDEOS ──
+function renderVideos(){
+  const wrap = document.getElementById('videoList');
+  const vids = record.videos || [];
+  if(vids.length === 0){ wrap.innerHTML = '<p class="thumb-empty">No films uploaded yet</p>'; return; }
+  wrap.innerHTML = vids.map((v,i)=>`
+    <div class="video-item">
+      <video src="${v.url}" muted></video>
+      <div class="vi-body">
+        <input type="text" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="Film title" data-idx="${i}" class="vi-title">
+        <div class="vi-actions">
+          <button class="btn btn-ghost btn-sm vi-save" data-idx="${i}">Save Title</button>
+          <button class="btn btn-ghost btn-sm vi-del" data-idx="${i}">Remove</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('.vi-save').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const idx = parseInt(btn.dataset.idx);
+      const input = wrap.querySelector(`.vi-title[data-idx="${idx}"]`);
+      record.videos[idx].title = input.value.trim();
+      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
+    });
+  });
+  wrap.querySelectorAll('.vi-del').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      record.videos.splice(parseInt(btn.dataset.idx),1);
+      renderVideos();
+      try{ await saveRecord(); }catch(e){ showToast(e.message, true); }
+    });
+  });
+}
+document.getElementById('videoFileInput').addEventListener('change', async (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const statusEl = document.getElementById('videoStatus');
+  statusEl.textContent = 'Uploading…'; statusEl.className='upload-status';
+  try{
+    const url = await uploadToCloudinary(file, true);
+    if(record.videos.length >= 3) record.videos.shift();
+    record.videos.push({url, title:''});
+    renderVideos();
+    await saveRecord();
+    statusEl.textContent = 'Done ✓'; statusEl.className='upload-status ok';
+  }catch(err){
+    statusEl.textContent = err.message; statusEl.className='upload-status err';
+  }
+  e.target.value = '';
+});
+
+function renderAll(){
+  renderPortfolioSections();
+  renderCovers();
+  renderSnapshotThumbs();
+  renderVideos();
+}
+</script>
+</body>
+</html>
