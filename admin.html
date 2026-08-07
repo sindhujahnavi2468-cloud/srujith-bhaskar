@@ -871,7 +871,84 @@ function confirmDeleteVideo(i) {
     toast('Video removed', 'info');
   };
 }
+/* ══════════════════════════════════════
+   HERO BACKGROUND MANAGER
+══════════════════════════════════════ */
+function renderHeroSlot() {
+  const container = document.getElementById('heroSlot');
+  if (!container) return;
+  const hero = galleryData.hero || { type: '', url: '' };
+  const hasHero = !!(hero && hero.url);
+  container.innerHTML = `
+    <div class="hero-preview" id="hero-preview">
+      ${hasHero
+        ? (hero.type === 'video'
+            ? `<video src="${hero.url}" muted loop playsinline preload="metadata" style="cursor:pointer" onclick="this.paused?this.play():this.pause()"></video>`
+            : `<img src="${hero.url.replace('/upload/', '/upload/q_auto,f_auto,w_800/')}" alt="">`)
+        : `<div class="hero-preview-empty"><span style="font-size:28px;opacity:0.3">🌅</span><p>No hero background yet<br>Using plain gradient</p></div>`
+      }
+    </div>
+    <div class="hero-slot-body">
+      <div class="hero-slot-actions">
+        <button class="video-upload-btn" id="hero-upload-btn" style="flex:1">
+          ${hasHero ? '↻ Replace With New Photo/Video' : '↑ Upload Photo or Video'}
+          <input type="file" accept="image/*,video/mp4,video/*" onchange="uploadHero(this.files[0])">
+        </button>
+        ${hasHero ? `<button class="video-del-btn" onclick="confirmDeleteHero()">🗑 Remove</button>` : ''}
+      </div>
+      <div class="hero-progress" id="hero-progress"><div class="hero-progress-bar" id="hero-progress-bar"></div></div>
+    </div>`;
+}
 
+async function uploadHero(file) {
+  if (!file) return;
+  const isVideo = file.type.startsWith('video/');
+  const progEl = document.getElementById('hero-progress');
+  const progBar = document.getElementById('hero-progress-bar');
+  const btn = document.getElementById('hero-upload-btn');
+  if (progEl) progEl.style.display = 'block';
+  if (btn) { btn.innerHTML = '↑ Uploading…'; btn.disabled = true; }
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('folder', 'srujith-bhaskar/hero');
+    let prog = 0;
+    const progInterval = setInterval(() => {
+      prog = Math.min(prog + Math.random() * 12, 85);
+      if (progBar) progBar.style.width = prog + '%';
+    }, 400);
+    const endpoint = isVideo
+      ? `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`
+      : `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+    const res = await fetch(endpoint, { method: 'POST', body: formData });
+    clearInterval(progInterval);
+    if (!res.ok) throw new Error('Cloudinary hero ' + res.status);
+    const data = await res.json();
+    if (progBar) progBar.style.width = '100%';
+    galleryData.hero = { type: isVideo ? 'video' : 'image', url: data.secure_url };
+    markUnsaved();
+    renderHeroSlot();
+    toast('Hero background uploaded ✓', 'success');
+  } catch(e) {
+    toast('Hero upload failed — try again', 'error');
+    console.error(e);
+    renderHeroSlot();
+  }
+}
+
+function confirmDeleteHero() {
+  document.getElementById('confirmModalBody').textContent = `Remove the hero background from your homepage? It will revert to the plain gradient.`;
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Remove';
+  document.getElementById('confirmModalYes').onclick = () => {
+    galleryData.hero = { type: '', url: '' };
+    closeModal();
+    renderHeroSlot();
+    markUnsaved();
+    toast('Hero background removed', 'info');
+  };
+}
 /* ══════════════════════════════════════
    COVER IMAGES MANAGER
    Covers in galleryData.covers = { cat: url }
