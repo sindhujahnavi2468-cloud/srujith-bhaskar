@@ -262,6 +262,32 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
   <div class="admin-body">
     <div class="admin-header">
       <h1>Studio Manager</h1>
+      <button onclick="makeBinPublic()" style="margin-bottom:20px;padding:10px 20px;background:#27ae60;color:#fff;border:none;cursor:pointer;font-family:sans-serif;">
+  Make Bin Public (click once)
+</button>
+
+<script>
+async function makeBinPublic() {
+  try {
+    const res = await fetch('https://api.jsonbin.io/v3/b/6a75a1b8da38895dfec567ec', {
+      method: 'PUT',
+      headers: {
+        'X-Master-Key': '$2a$10$k6B/yUZ/sqKKaHjVGCfMJuTNI1OmXnNCbiK/j1INWem.2xng6mUfm',
+        'X-Bin-Private': 'false',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(galleryData)
+    });
+    if (res.ok) {
+      alert('Done! Bin is now public. Your website should show photos now.');
+    } else {
+      alert('Failed: ' + res.status + ' — send this to Claude.');
+    }
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+}
+</script>
       <p>Upload photos, manage videos, update cover images, edit quote pricing, and view client quote requests. Changes go live on your website after you click Save.</p>
     </div>
 
