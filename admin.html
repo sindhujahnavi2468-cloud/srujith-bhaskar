@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Srujith Bhaskar Photography — Admin Panel</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --ink:#241318;--white:#ffffff;--off:#F8F3F4;--maroon:#8E1B42;--rose:#B63E63;
-  --gold:#ab8850;--gold-light:#cfb37e;--muted:#B27288;--border:rgba(142,27,66,0.12);--light:#F8F3F4;
+  --ink:#12303D;--white:#ffffff;--off:#EAF6FC;--maroon:#1C96C5;--rose:#20A8DC;
+  --gold:#63C1E5;--gold-light:#A0D8EF;--muted:#4C7B8C;--border:rgba(28,150,197,0.12);--light:#D0ECF8;
   --danger:#c0392b;--success:#27ae60;
-  --f-script:'Poppins',sans-serif;--f-body:'Jost',sans-serif;--f-ed:'Cormorant Garamond',serif;
+  --f-script:'Bitter',serif;--f-body:'Bitter',serif;--f-ed:'Bitter',serif;
 }
 html{scroll-behavior:smooth}
 body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height:100vh}
@@ -44,7 +44,7 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
 .admin-header h1{font-family:var(--f-script);font-weight:800;font-size:34px;color:var(--maroon);margin-bottom:6px}
 .admin-header p{font-size:13px;color:var(--muted)}
 
-.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:36px}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:36px}
 .stat-cell{background:var(--white);padding:20px 24px}
 .stat-n{font-family:var(--f-script);font-weight:800;font-size:30px;color:var(--maroon)}
 .stat-label{font-size:8.5px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-top:4px}
@@ -145,19 +145,6 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
 .video-progress-bar{height:100%;background:var(--gold);width:0%;transition:width 0.3s}
 .video-note{font-size:11px;color:var(--muted);line-height:1.6;padding:14px;background:rgba(171,136,80,0.08);border:1px solid rgba(171,136,80,0.25);margin-bottom:20px}
 
-/* QUOTATION PRICING TAB */
-.pricing-section{margin-bottom:36px}
-.pricing-section-title{font-family:var(--f-script);font-weight:800;font-size:19px;color:var(--maroon);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.pricing-item{background:var(--white);border:1px solid var(--border);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
-.pricing-item-label{font-size:12.5px;color:var(--ink);font-weight:500}
-.pricing-item-value{display:flex;align-items:center;gap:6px}
-.pricing-item-value span{font-family:var(--f-ed);font-size:16px;color:var(--muted)}
-.pricing-input{flex:1;border:1px solid var(--border);background:var(--off);padding:9px 12px;font-family:var(--f-ed);font-size:15px;color:var(--maroon);font-weight:600;outline:none;transition:border-color 0.3s;border-radius:0}
-.pricing-input:focus{border-color:var(--maroon)}
-.pricing-reset-row{display:flex;justify-content:flex-end;margin-bottom:20px}
-.pricing-reset-btn{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger);padding:8px 18px;font-family:var(--f-body);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
-.pricing-reset-btn:hover{background:var(--danger);color:#fff}
 /* HERO BACKGROUND TAB */
 .hero-slot{background:var(--white);border:1px solid var(--border);overflow:hidden;max-width:420px}
 .hero-preview{aspect-ratio:16/9;background:var(--light);position:relative;overflow:hidden}
@@ -168,43 +155,6 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
 .hero-slot-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .hero-progress{height:3px;background:var(--border);margin-top:10px;display:none}
 .hero-progress-bar{height:100%;background:var(--gold);width:0%;transition:width 0.3s}
-
-/* QUOTES TAB */
-.quotes-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.quotes-count-badge{background:var(--rose);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.1em}
-.quotes-clear-btn{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger);padding:8px 18px;font-family:var(--f-body);font-size:9px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
-.quotes-clear-btn:hover{background:var(--danger);color:#fff}
-.quotes-empty{padding:64px 24px;text-align:center;border:1px dashed rgba(92,23,48,0.15);color:var(--muted);font-size:14px;line-height:2}
-.quotes-empty p{font-size:13px}
-.quote-card{background:var(--white);border:1px solid var(--border);margin-bottom:12px;overflow:hidden;transition:border-color 0.2s}
-.quote-card:hover{border-color:rgba(92,23,48,0.25)}
-.quote-card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;border-bottom:1px solid transparent;transition:background 0.2s}
-.quote-card-header:hover{background:rgba(92,23,48,0.02)}
-.quote-card-header.open{border-bottom-color:var(--border);background:rgba(92,23,48,0.02)}
-.quote-client{display:flex;flex-direction:column;gap:3px}
-.quote-client-name{font-family:var(--f-script);font-weight:800;font-size:17px;color:var(--maroon)}
-.quote-client-meta{font-size:11px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
-.quote-total-badge{font-family:var(--f-ed);font-size:22px;color:var(--crimson,#8c2440)}
-.quote-chevron{font-size:12px;color:var(--muted);transition:transform 0.3s;flex-shrink:0;margin-left:12px}
-.quote-card-header.open .quote-chevron{transform:rotate(180deg)}
-.quote-card-body{display:none;padding:20px;border-top:1px solid var(--border)}
-.quote-card-body.open{display:block}
-.quote-summary-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
-.quote-summary-table th{text-align:left;padding:8px 12px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:500}
-.quote-summary-table td{padding:9px 12px;border-bottom:1px solid rgba(92,23,48,0.06);color:var(--ink)}
-.quote-summary-table tfoot td{font-weight:700;color:var(--rose);border-bottom:2px solid var(--border);padding-top:12px}
-.quote-details-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.qdg-cell{padding:12px 14px;background:var(--off);border-left:2px solid var(--gold)}
-.qdg-label{font-size:8px;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.qdg-val{font-size:13px;color:var(--ink);font-weight:500}
-.quote-card-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.q-action-btn{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;padding:8px 18px;border:none;cursor:pointer;transition:all 0.2s;font-family:var(--f-body);font-weight:500}
-.q-action-btn.whatsapp{background:var(--maroon);color:#fff}
-.q-action-btn.whatsapp:hover{background:var(--rose)}
-.q-action-btn.delete{background:none;border:1px solid rgba(192,57,43,0.3);color:var(--danger)}
-.q-action-btn.delete:hover{background:var(--danger);color:#fff}
-.quote-timestamp{font-size:10px;color:var(--muted);letter-spacing:0.05em}
-.quotes-new-indicator{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rose);margin-left:6px;vertical-align:middle}
 
 /* SAVE BANNER */
 .save-banner{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--maroon);padding:14px 40px;display:none;align-items:center;justify-content:space-between;border-top:2px solid var(--gold)}
@@ -272,40 +222,13 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
   <div class="admin-body">
     <div class="admin-header">
       <h1>Studio Manager</h1>
-      <button onclick="makeBinPublic()" style="margin-bottom:20px;padding:10px 20px;background:#27ae60;color:#fff;border:none;cursor:pointer;font-family:sans-serif;">
-  Make Bin Public (click once)
-</button>
-
-<script>
-async function makeBinPublic() {
-  try {
-    const res = await fetch('https://api.jsonbin.io/v3/b/6a75a1b8da38895dfec567ec', {
-      method: 'PUT',
-      headers: {
-        'X-Master-Key': '$2a$10$k6B/yUZ/sqKKaHjVGCfMJuTNI1OmXnNCbiK/j1INWem.2xng6mUfm',
-        'X-Bin-Private': 'false',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(galleryData)
-    });
-    if (res.ok) {
-      alert('Done! Bin is now public. Your website should show photos now.');
-    } else {
-      alert('Failed: ' + res.status + ' — send this to Claude.');
-    }
-  } catch(e) {
-    alert('Error: ' + e.message);
-  }
-}
-</script>
-      <p>Upload photos, manage videos, update cover images, edit quote pricing, and view client quote requests. Changes go live on your website after you click Save.</p>
+      <p>Upload photos, manage videos, and update cover images. Changes go live on your website after you click Save.</p>
     </div>
 
     <div class="stats-bar">
       <div class="stat-cell"><div class="stat-n" id="statTotal">—</div><div class="stat-label">Portfolio Photos</div></div>
       <div class="stat-cell"><div class="stat-n" id="statSnap">—</div><div class="stat-label">Snapshot Grid</div></div>
       <div class="stat-cell"><div class="stat-n" id="statVideos">—</div><div class="stat-label">Videos Live</div></div>
-      <div class="stat-cell"><div class="stat-n" id="statQuotes">—</div><div class="stat-label">Quote Requests</div></div>
       <div class="stat-cell"><div class="stat-n">10</div><div class="stat-label">Max Per Category</div></div>
     </div>
 
@@ -314,8 +237,6 @@ async function makeBinPublic() {
       <button class="tab-btn" data-tab="videos">🎬 Videos</button>
       <button class="tab-btn" data-tab="hero">🌅 Hero Background</button>
       <button class="tab-btn" data-tab="covers">🖼 Cover Images</button>
-      <button class="tab-btn" data-tab="pricing">💰 Quote Pricing</button>
-      <button class="tab-btn" data-tab="quotes">✦ Quote Requests<span class="notif-badge" id="quoteBadge" style="display:none"></span></button>
       <button class="tab-btn" data-tab="prewedding">Pre-Wedding</button>
       <button class="tab-btn" data-tab="engagement">Engagement</button>
       <button class="tab-btn" data-tab="haldi">Haldi</button>
@@ -370,27 +291,6 @@ async function makeBinPublic() {
       <div class="cover-grid" id="coverGrid"></div>
     </div>
 
-    <!-- ══ QUOTE PRICING TAB ══ -->
-    <div class="tab-panel" id="tab-pricing">
-      <span class="section-label">Quote Builder Pricing</span>
-      <div class="video-note">💰 These are the exact prices shown to clients in the "Build Your Quote" tool on your website. Edit any amount below (in ₹) and click <strong>Save Changes</strong> — the quote builder updates instantly for every visitor.</div>
-      <div class="pricing-reset-row"><button class="pricing-reset-btn" onclick="resetAllPricing()">Reset All to Defaults</button></div>
-      <div id="pricingContainer"></div>
-    </div>
-
-    <!-- ══ QUOTES TAB ══ -->
-    <div class="tab-panel" id="tab-quotes">
-      <div class="quotes-header">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span class="section-label" style="margin-bottom:0">Client Quote Requests</span>
-          <span class="quotes-count-badge" id="quotesCountBadge">0 Quotes</span>
-        </div>
-        <button class="quotes-clear-btn" onclick="clearAllQuotes()">Clear All</button>
-      </div>
-      <div class="video-note">ℹ Quote requests are saved on this device (this browser) when a client completes the "Build Your Quote" form. To view requests from a different device, ask the client for their WhatsApp message.</div>
-      <div id="quotesContainer"></div>
-    </div>
-
     <!-- CATEGORY GALLERY TABS -->
     <div class="tab-panel" id="tab-prewedding"><div class="gallery-section" id="gallery-prewedding"></div></div>
     <div class="tab-panel" id="tab-engagement"><div class="gallery-section" id="gallery-engagement"></div></div>
@@ -440,59 +340,9 @@ const MAX_PER_CAT    = 10;
 const MAX_VIDEOS     = 3;
 
 /* ══════════════════════════════════════
-   DEFAULT QUOTE PRICING — mirrors the data-price / data-label
-   values baked into index.html's quote builder cards
-══════════════════════════════════════ */
-const PRICING_CATALOG = [
-  { section:'Engagement Coverage', items:[
-    { value:'eng_trad_photo',   label:'Traditional Photo',   defaultPrice:10000 },
-    { value:'eng_trad_video',   label:'Traditional Video 4K',defaultPrice:10000 },
-    { value:'eng_candid_photo', label:'Candid Photo',        defaultPrice:15000 },
-    { value:'eng_candid_video', label:'Candid Video 4K',     defaultPrice:15000 },
-  ]},
-  { section:'Bride & Groom Making', items:[
-    { value:'mk_bride_photo', label:'Bride Making Photo',  defaultPrice:8000 },
-    { value:'mk_bride_video', label:'Bride Making Video',  defaultPrice:8000 },
-    { value:'mk_groom_photo', label:'Groom Making Photo',  defaultPrice:8000 },
-    { value:'mk_groom_video', label:'Groom Making Video',  defaultPrice:8000 },
-  ]},
-  { section:'Haldi Coverage', items:[
-    { value:'hd_bride_candid_photo', label:'Bride Haldi Photo', defaultPrice:12000 },
-    { value:'hd_bride_candid_video', label:'Bride Haldi Video', defaultPrice:15000 },
-    { value:'hd_groom_candid_photo', label:'Groom Haldi Photo', defaultPrice:12000 },
-    { value:'hd_groom_candid_video', label:'Groom Haldi Video', defaultPrice:15000 },
-  ]},
-  { section:'Formalities Coverage', items:[
-    { value:'fm_bride_photo', label:'Bride Formalities Photo', defaultPrice:7000 },
-    { value:'fm_bride_video', label:'Bride Formalities Video', defaultPrice:7000 },
-    { value:'fm_groom_photo', label:'Groom Formalities Photo', defaultPrice:7000 },
-    { value:'fm_groom_video', label:'Groom Formalities Video', defaultPrice:7000 },
-  ]},
-  { section:'Reception & Wedding (Mandatory)', items:[
-    { value:'rw_trad_photo',   label:'Traditional Photo',    defaultPrice:20000 },
-    { value:'rw_trad_video',   label:'Traditional Video 4K', defaultPrice:20000 },
-    { value:'rw_candid_photo', label:'Candid Photo',         defaultPrice:30000 },
-    { value:'rw_candid_video', label:'Candid Video 4K',      defaultPrice:30000 },
-    { value:'rw_drone',        label:'Drone',                defaultPrice:8000 },
-  ]},
-  { section:'Albums (50 sheets each)', items:[
-    { value:'alb_bride', label:'Bride Album', defaultPrice:18000 },
-    { value:'alb_groom', label:'Groom Album', defaultPrice:18000 },
-  ]},
-  { section:'Post Production', items:[
-    { value:'post_rush',     label:'Rush Delivery',      defaultPrice:25000 },
-    { value:'post_standard', label:'Standard Timeline',  defaultPrice:0 },
-  ]},
-  { section:'Pre-Wedding', items:[
-    { value:'pw_photo_only',  label:'Photo Only',      defaultPrice:20000 },
-    { value:'pw_photo_video', label:'Photo & Video',   defaultPrice:45000 },
-  ]},
-];
-
-/* ══════════════════════════════════════
    DATA MODEL — shape must stay in sync with index.html's loader:
    { prewedding[], engagement[], haldi[], wedding[], reception[], specials[],
-     snapshot[], videos:[{url,title}], covers:{cat:url}, quotePricing:{value:price} }
+     snapshot[], videos:[{url,title}], covers:{cat:url}, hero:{type,url} }
 ══════════════════════════════════════ */
 let galleryData = {
   prewedding: [], engagement: [], haldi: [],
@@ -500,15 +350,10 @@ let galleryData = {
   snapshot: [],
   videos: [],
   covers: {},
-  quotePricing: {},
   hero: { type: '', url: '' }
 };
 let hasUnsavedChanges = false;
 let pendingFiles = [];
-
-/* Quotes stored in localStorage — client-submitted quote requests.
-   Key MUST match what index.html writes when a client submits a quote. */
-const QUOTES_KEY = 'srujith_admin_quotes';
 
 const CATEGORY_LABELS = {
   prewedding: 'Pre-Wedding',
@@ -567,9 +412,6 @@ async function loadFromJSONBin() {
     if (record.covers && typeof record.covers === 'object') {
       galleryData.covers = record.covers;
     }
-   if (record.quotePricing && typeof record.quotePricing === 'object') {
-      galleryData.quotePricing = record.quotePricing;
-    }
     if (record.hero && typeof record.hero === 'object') {
       galleryData.hero = record.hero;
     }
@@ -578,8 +420,6 @@ async function loadFromJSONBin() {
     renderVideoSlots();
     renderHeroSlot();
     renderCoversGrid();
-    renderPricingTab();
-    renderQuotesTab();
     updateStats();
     updateSyncNote();
     toast('Studio data loaded ✓', 'success');
@@ -1020,200 +860,6 @@ function deleteCoverImage(cat) {
 }
 
 /* ══════════════════════════════════════
-   QUOTE PRICING MANAGER
-   galleryData.quotePricing = { serviceValue: price }
-   index.html applies this on load via window.__srujithApplyPricing()
-══════════════════════════════════════ */
-function currentPrice(value, defaultPrice) {
-  const v = galleryData.quotePricing?.[value];
-  return (v === undefined || v === null || v === '') ? defaultPrice : Number(v);
-}
-
-function renderPricingTab() {
-  const container = document.getElementById('pricingContainer');
-  if (!container) return;
-  container.innerHTML = '';
-  PRICING_CATALOG.forEach(section => {
-    const sec = document.createElement('div');
-    sec.className = 'pricing-section';
-    const itemsHTML = section.items.map(item => {
-      const price = currentPrice(item.value, item.defaultPrice);
-      return `
-      <div class="pricing-item">
-        <span class="pricing-item-label">${item.label}</span>
-        <div class="pricing-item-value">
-          <span>₹</span>
-          <input type="number" min="0" step="500" class="pricing-input" id="price-${item.value}"
-            value="${price}" oninput="onPricingChange('${item.value}')">
-        </div>
-      </div>`;
-    }).join('');
-    sec.innerHTML = `<h3 class="pricing-section-title">${section.section}</h3><div class="pricing-grid">${itemsHTML}</div>`;
-    container.appendChild(sec);
-  });
-}
-
-function onPricingChange(value) {
-  const input = document.getElementById('price-' + value);
-  if (!input) return;
-  const num = Math.max(0, Number(input.value) || 0);
-  if (!galleryData.quotePricing) galleryData.quotePricing = {};
-  galleryData.quotePricing[value] = num;
-  markUnsaved();
-}
-
-function resetAllPricing() {
-  document.getElementById('confirmModalBody').textContent = 'Reset every quote price back to the original default? This cannot be undone once saved.';
-  document.getElementById('confirmModal').classList.add('open');
-  document.getElementById('confirmModalYes').textContent = 'Yes, Reset All';
-  document.getElementById('confirmModalYes').onclick = () => {
-    galleryData.quotePricing = {};
-    closeModal();
-    renderPricingTab();
-    markUnsaved();
-    toast('All quote prices reset to defaults', 'info');
-  };
-}
-
-/* ══════════════════════════════════════
-   QUOTES
-   Stored in localStorage under QUOTES_KEY, written by index.html
-   when a client completes the quote builder.
-   Schema: [{id, name, phone, email, date, venue, items:[{label,price,qty}], timestamp, seen}]
-══════════════════════════════════════ */
-function getStoredQuotes() {
-  try { return JSON.parse(localStorage.getItem(QUOTES_KEY) || '[]'); } catch { return []; }
-}
-function saveStoredQuotes(quotes) {
-  localStorage.setItem(QUOTES_KEY, JSON.stringify(quotes));
-}
-
-function renderQuotesTab() {
-  const quotes = getStoredQuotes();
-  const container = document.getElementById('quotesContainer');
-  const badge = document.getElementById('quotesCountBadge');
-  const tabBadge = document.getElementById('quoteBadge');
-  const statEl = document.getElementById('statQuotes');
-  if (badge) badge.textContent = `${quotes.length} Quote${quotes.length !== 1 ? 's' : ''}`;
-  if (statEl) statEl.textContent = quotes.length;
-  if (tabBadge) tabBadge.style.display = quotes.some(q => q.seen === false) ? 'block' : 'none';
-  if (!container) return;
-  if (quotes.length === 0) {
-    container.innerHTML = `
-      <div class="quotes-empty">
-        <div style="font-size:36px;margin-bottom:16px;opacity:0.3">📋</div>
-        <p>No quote requests yet.</p>
-        <p style="margin-top:8px;font-size:12px;opacity:0.7">When clients complete the <strong>"Build Your Quote"</strong> form on your website, their details will appear here automatically.</p>
-      </div>`;
-    return;
-  }
-  const sorted = [...quotes].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-  container.innerHTML = sorted.map((q) => {
-    const total = q.items ? q.items.reduce((s, it) => s + (it.price * (it.qty || 1)), 0) : 0;
-    const ts = q.timestamp ? new Date(q.timestamp).toLocaleString('en-IN', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : 'Unknown date';
-    const itemsHTML = q.items && q.items.filter(it => it.price > 0).map(it =>
-      `<tr><td>${it.label || it.value}</td><td>${it.qty || 1}</td><td>₹${(it.price * (it.qty || 1)).toLocaleString('en-IN')}</td></tr>`
-    ).join('') || '<tr><td colspan="3" style="color:var(--muted)">No items</td></tr>';
-    const isNew = q.seen === false;
-    return `
-    <div class="quote-card" id="qcard-${q.id}">
-      <div class="quote-card-header" onclick="toggleQuoteCard('${q.id}')">
-        <div class="quote-client">
-          <span class="quote-client-name">${q.name || 'Unknown Client'}${isNew ? '<span class="quotes-new-indicator" title="New"></span>' : ''}</span>
-          <div class="quote-client-meta">
-            <span>📞 ${q.phone || '—'}</span>
-            <span>✉ ${q.email || '—'}</span>
-            ${q.date ? `<span>📅 ${q.date}</span>` : ''}
-            ${q.venue ? `<span>📍 ${q.venue}</span>` : ''}
-          </div>
-        </div>
-        <span class="quote-total-badge">₹${total.toLocaleString('en-IN')}</span>
-        <span class="quote-chevron">▼</span>
-      </div>
-      <div class="quote-card-body" id="qbody-${q.id}">
-        <div class="quote-details-grid">
-          <div class="qdg-cell"><div class="qdg-label">Client Name</div><div class="qdg-val">${q.name || '—'}</div></div>
-          <div class="qdg-cell"><div class="qdg-label">Phone</div><div class="qdg-val">${q.phone || '—'}</div></div>
-          <div class="qdg-cell"><div class="qdg-label">Email</div><div class="qdg-val">${q.email || '—'}</div></div>
-          <div class="qdg-cell"><div class="qdg-label">Wedding Date</div><div class="qdg-val">${q.date || '—'}</div></div>
-        </div>
-        <table class="quote-summary-table">
-          <thead><tr><th>Service</th><th>Qty</th><th>Price</th></tr></thead>
-          <tbody>${itemsHTML}</tbody>
-          <tfoot><tr><td colspan="2">Estimated Total</td><td>₹${total.toLocaleString('en-IN')}</td></tr></tfoot>
-        </table>
-        <div class="quote-card-actions">
-          <button class="q-action-btn whatsapp" onclick="whatsappQuote('${q.id}')">📱 WhatsApp Client</button>
-          <button class="q-action-btn delete" onclick="deleteQuote('${q.id}')">🗑 Delete</button>
-          <span class="quote-timestamp">Received: ${ts}</span>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function toggleQuoteCard(id) {
-  const header = document.querySelector(`#qcard-${id} .quote-card-header`);
-  const body = document.getElementById('qbody-' + id);
-  if (!header || !body) return;
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  header.classList.toggle('open', !isOpen);
-  if (!isOpen) {
-    const quotes = getStoredQuotes();
-    const q = quotes.find(q => q.id === id);
-    if (q && q.seen === false) { q.seen = true; saveStoredQuotes(quotes); renderQuotesTab(); }
-  }
-}
-
-function deleteQuote(id) {
-  document.getElementById('confirmModalBody').textContent = 'Delete this quote request? This cannot be undone.';
-  document.getElementById('confirmModal').classList.add('open');
-  document.getElementById('confirmModalYes').textContent = 'Yes, Delete';
-  document.getElementById('confirmModalYes').onclick = () => {
-    const quotes = getStoredQuotes().filter(q => q.id !== id);
-    saveStoredQuotes(quotes);
-    closeModal();
-    renderQuotesTab();
-    toast('Quote deleted', 'info');
-  };
-}
-
-function clearAllQuotes() {
-  if (!getStoredQuotes().length) { toast('No quotes to clear', 'info'); return; }
-  document.getElementById('confirmModalBody').textContent = 'Clear ALL quote requests? This cannot be undone.';
-  document.getElementById('confirmModal').classList.add('open');
-  document.getElementById('confirmModalYes').textContent = 'Yes, Clear All';
-  document.getElementById('confirmModalYes').onclick = () => {
-    saveStoredQuotes([]);
-    closeModal();
-    renderQuotesTab();
-    toast('All quotes cleared', 'info');
-  };
-}
-
-function whatsappQuote(id) {
-  const q = getStoredQuotes().find(q => q.id === id);
-  if (!q) return;
-  const total = q.items ? q.items.reduce((s, it) => s + (it.price * (it.qty || 1)), 0) : 0;
-  const itemLines = q.items ? q.items.filter(it => it.price > 0).map(it => `  • ${it.label}: ₹${(it.price * (it.qty || 1)).toLocaleString('en-IN')}`).join('\n') : '';
-  const msg = `Hello ${q.name || ''},\n\nThank you for your quote request with Srujith Bhaskar Photography!\n\nHere's your estimated package:\n${itemLines}\n\n*Total: ₹${total.toLocaleString('en-IN')}*\n\nWedding Date: ${q.date || '—'}\nVenue: ${q.venue || '—'}\n\nWe'd love to be part of your special day! Let's connect to customise your package.\n\n— Srujith Bhaskar Photography`;
-  const phone = (q.phone || '').replace(/[^0-9]/g, '');
-  window.open(`https://wa.me/${phone.startsWith('91') ? phone : '91' + phone}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-/* Poll localStorage for new quotes every 5 seconds */
-setInterval(() => {
-  const quotes = getStoredQuotes();
-  const statEl = document.getElementById('statQuotes');
-  const badge = document.getElementById('quoteBadge');
-  const countBadge = document.getElementById('quotesCountBadge');
-  if (statEl) statEl.textContent = quotes.length;
-  if (badge) badge.style.display = quotes.some(q => q.seen === false) ? 'block' : 'none';
-  if (countBadge) countBadge.textContent = `${quotes.length} Quote${quotes.length !== 1 ? 's' : ''}`;
-}, 5000);
-
-/* ══════════════════════════════════════
    DELETE PHOTO
 ══════════════════════════════════════ */
 function confirmDelete(cat, idx) {
@@ -1243,7 +889,6 @@ function updateStats() {
   document.getElementById('statTotal').textContent = total;
   document.getElementById('statSnap').textContent = galleryData.snapshot?.length || 0;
   document.getElementById('statVideos').textContent = (galleryData.videos || []).filter(Boolean).length;
-  document.getElementById('statQuotes').textContent = getStoredQuotes().length;
 }
 
 /* ══════════════════════════════════════
