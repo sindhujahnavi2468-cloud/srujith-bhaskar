@@ -156,6 +156,15 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
 .hero-progress{height:3px;background:var(--border);margin-top:10px;display:none}
 .hero-progress-bar{height:100%;background:var(--gold);width:0%;transition:width 0.3s}
 
+/* TESTIMONIALS ADMIN */
+.t-form{background:var(--white);border:1px solid var(--border);padding:24px;margin-bottom:28px}
+.t-form-row{display:grid;grid-template-columns:1fr 1fr 100px;gap:14px;margin-bottom:6px}
+.t-item{display:flex;gap:16px;justify-content:space-between;align-items:flex-start;background:var(--white);border:1px solid var(--border);padding:16px 20px;margin-bottom:8px}
+.t-item-name{font-weight:700;font-size:14px;color:var(--ink)}
+.t-item-meta{font-size:11px;color:var(--muted);margin:2px 0 8px}
+.t-item-text{font-size:13px;line-height:1.7;color:var(--ink)}
+.t-item-actions{display:flex;gap:8px;flex-shrink:0}
+@media(max-width:800px){.t-form-row{grid-template-columns:1fr}}
 /* SAVE BANNER */
 .save-banner{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--maroon);padding:14px 40px;display:none;align-items:center;justify-content:space-between;border-top:2px solid var(--gold)}
 .save-banner.visible{display:flex}
@@ -237,6 +246,7 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
       <button class="tab-btn" data-tab="videos">🎬 Videos</button>
       <button class="tab-btn" data-tab="hero">🌅 Hero Background</button>
       <button class="tab-btn" data-tab="covers">🖼 Cover Images</button>
+      <button class="tab-btn" data-tab="testimonials">💬 Testimonials</button>
       <button class="tab-btn" data-tab="prewedding">Pre-Wedding</button>
       <button class="tab-btn" data-tab="engagement">Engagement</button>
       <button class="tab-btn" data-tab="haldi">Haldi</button>
@@ -291,6 +301,26 @@ body{background:var(--off);color:var(--ink);font-family:var(--f-body);min-height
       <div class="cover-grid" id="coverGrid"></div>
     </div>
 
+    <!-- ══ TESTIMONIALS TAB ══ -->
+    <div class="tab-panel" id="tab-testimonials">
+      <span class="section-label">Client Testimonials</span>
+      <div class="video-note">💬 Add, edit or remove testimonials. They appear on your website's "Words from Our Couples" section after you click Save. The section stays hidden on the site until at least one testimonial exists.</div>
+      <div class="t-form">
+        <div class="t-form-row">
+          <div><label class="video-title-label">Client Name(s) *</label><input type="text" class="video-title-input" id="tName" placeholder="e.g. Priya &amp; Arjun"></div>
+          <div><label class="video-title-label">Event / Location</label><input type="text" class="video-title-input" id="tEvent" placeholder="e.g. Wedding, Rajamundry · 2026"></div>
+          <div><label class="video-title-label">Rating</label>
+            <select class="video-title-input" id="tRating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+        </div>
+        <label class="video-title-label">Testimonial *</label>
+        <textarea class="video-title-input" id="tText" rows="4" placeholder="What the client said…" style="resize:vertical"></textarea>
+        <div style="display:flex;gap:10px;margin-top:6px">
+          <button class="upload-btn" id="tSaveBtn" onclick="saveTestimonial()">Add Testimonial</button>
+          <button class="modal-cancel" id="tCancelBtn" style="display:none" onclick="resetTestimonialForm()">Cancel Edit</button>
+        </div>
+      </div>
+      <div id="testimonialList"></div>
+    </div>
     <!-- CATEGORY GALLERY TABS -->
     <div class="tab-panel" id="tab-prewedding"><div class="gallery-section" id="gallery-prewedding"></div></div>
     <div class="tab-panel" id="tab-engagement"><div class="gallery-section" id="gallery-engagement"></div></div>
@@ -349,8 +379,9 @@ let galleryData = {
   wedding: [], reception: [], specials: [],
   snapshot: [],
   videos: [],
-  covers: {},
-  hero: { type: '', url: '' }
+    covers: {},
+  hero: { type: '', url: '' },
+  testimonials: []
 };
 let hasUnsavedChanges = false;
 let pendingFiles = [];
@@ -415,11 +446,15 @@ async function loadFromJSONBin() {
     if (record.hero && typeof record.hero === 'object') {
       galleryData.hero = record.hero;
     }
+        if (Array.isArray(record.testimonials)) {
+      galleryData.testimonials = record.testimonials;
+    }
 
     renderAllGalleries();
     renderVideoSlots();
     renderHeroSlot();
     renderCoversGrid();
+    renderTestimonialsAdmin();
     updateStats();
     updateSyncNote();
     toast('Studio data loaded ✓', 'success');
