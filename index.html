@@ -51,6 +51,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 32px;height:80px;d
 .hero-kicker{font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold-light);margin-bottom:22px;opacity:0;animation:cinReveal .9s ease .2s forwards;}
 .hero-script{font-family:var(--f-script);font-size:clamp(44px,6.5vw,84px);letter-spacing:-.01em;color:#fff;line-height:1.05;opacity:0;animation:cinReveal .9s ease .35s forwards;}
 .hero-sub{font-family:var(--f-ed);font-style:italic;font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,.65);margin-top:14px;opacity:0;animation:cinReveal .9s ease .5s forwards;}
+.hero-name{margin:0;opacity:0;animation:cinReveal .9s ease .35s forwards;}
+.hero-name img{width:min(88vw,620px);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 2px 14px rgba(0,0,0,.25));}
 @keyframes cinReveal{from{opacity:0;transform:translateY(16px);filter:blur(6px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
 .hero-btns{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;animation:cinReveal .9s ease .7s forwards;}
 .hero-btns-top{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
@@ -217,6 +219,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 32px;height:80px;d
 .form-submit:hover{background:var(--rose);letter-spacing:.4em;}
 .form-note{font-family:var(--f-ed);font-style:italic;font-size:13px;color:var(--muted);margin-top:12px;}
 
+/* TESTIMONIALS */
+.testimonials{background:var(--cream);padding:100px 80px;border-top:1px solid var(--border);text-align:center;}
+.testimonials-title{font-family:var(--f-script);font-weight:900;font-size:clamp(46px,5vw,64px);color:var(--maroon);margin-bottom:14px;}
+.testimonials-sub{font-family:var(--f-ed);font-style:italic;font-size:16px;color:var(--muted);margin-bottom:48px;}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.t-card{background:var(--white);border:1px solid var(--border);padding:34px 28px;text-align:left;box-shadow:var(--shadow-sm);transition:.3s;}
+.t-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.t-stars{color:var(--gold);letter-spacing:4px;font-size:13px;margin-bottom:16px;}
+.t-quote{font-family:var(--f-ed);font-style:italic;font-size:15.5px;line-height:1.85;color:var(--ink);margin-bottom:22px;}
+.t-author{display:flex;align-items:center;gap:12px;}
+.t-avatar{width:38px;height:38px;border-radius:50%;background:var(--maroon);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
+.t-name{font-size:13px;font-weight:700;color:var(--ink);}
+.t-date{font-size:11px;color:var(--text-2);margin-top:2px;}
+@media (max-width:900px){.testimonials{padding:80px 24px;}.t-grid{grid-template-columns:1fr;}}
+
+/* LIVE */
+.live-section{background:var(--white);padding:100px 80px;border-top:1px solid var(--border);}
+.live-inner{max-width:980px;margin:0 auto;}
+.live-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:36px;}
+.live-title{font-family:var(--f-script);font-weight:900;font-size:clamp(40px,5vw,60px);color:var(--maroon);}
+.live-pill{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border-radius:40px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;border:1px solid var(--border);color:var(--text-2);}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--text-m);}
+.live-pill.is-live{border-color:rgba(220,38,38,.4);color:#b03030;}
+.live-pill.is-live .live-dot{background:#ef4444;animation:blinkLive 1.4s infinite;}
+@keyframes blinkLive{0%,100%{opacity:1}50%{opacity:.3}}
+.ls-wrap{border:1px solid var(--border);background:var(--cream);overflow:hidden;}
+.ls-wrap iframe{display:block;width:100%;aspect-ratio:16/9;border:none;}
+.ls-ph{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px;}
+.ls-ph h3{font-family:var(--f-script);font-weight:900;font-size:clamp(20px,2.4vw,28px);color:var(--maroon);}
+.ls-ph p{font-family:var(--f-ed);font-style:italic;font-size:15px;color:var(--text-2);max-width:420px;line-height:1.8;}
+.ls-ph a{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--maroon);text-decoration:none;border:1px solid var(--border-sel);padding:11px 24px;}
+.ls-ph a:hover{background:var(--maroon);color:#fff;}
+@media (max-width:900px){.live-section{padding:80px 24px;}}
+
 /* FOOTER */
 footer{position:relative;background:#0B2431;padding:70px 80px 0;}
 .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:60px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.08);}
@@ -228,7 +264,7 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
 .footer-links a{text-decoration:none;font-family:var(--f-ed);font-style:italic;font-size:15px;color:rgba(255,255,255,.45);}
 .footer-links a:hover{color:var(--gold-light);}
 .fci-lbl{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.25);}
-.fci-val{font-family:var(--f-ed);font-style:italic;font-size:15px;color:rgba(255,255,255,.55);margin-bottom:12px;}
+.fci-val{font-family:var(--f-ed);font-style:italic;font-size:15px;color:#fff;margin-bottom:12px;}
 .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:22px 0;flex-wrap:wrap;gap:10px;}
 .footer-copy{font-size:9.5px;letter-spacing:.15em;color:rgba(255,255,255,.2);text-transform:uppercase;}
 .footer-made{font-family:var(--f-ed);font-style:italic;font-size:13px;color:rgba(255,255,255,.18);}
@@ -312,9 +348,10 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#testimonials" onclick="closeMobileMenu()">Reviews</a>
     <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
     <a href="#films" onclick="closeMobileMenu()">Films</a>
+        <a href="#live" onclick="closeMobileMenu()">Live</a>
         <a href="#enquiry" onclick="closeMobileMenu()">Contact</a>
     <a href="/build-your-quote/" class="mob-quote">Get a Quote</a>
     <a href="#terms" onclick="showTerms(event);closeMobileMenu()">Terms</a>
@@ -326,7 +363,7 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
       <div class="hero-btns">
         <div class="hero-btns-top">
           <a href="#portfolio" class="btn-fill-l">View Portfolio</a>
-                    <a href="#about" class="btn-outline-l">Our Story</a>
+                    <a href="#testimonials" class="btn-outline-l">Reviews</a>
         </div>
         <a href="/build-your-quote/" class="btn-quote-big">&#10022; Build Your Quote →</a>
         <p class="btn-quote-note">Custom wedding package · Free · 2 minutes</p>
@@ -335,33 +372,6 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
     </div>
   </section>
 
-  <section class="about" id="about">
-    <div class="about-inner">
-      <div class="about-photo-wrap reveal">
-        <div class="about-photo"><span>Srujith<br>Bhaskar</span></div>
-        <div class="about-kp">
-          <div class="kp"><div class="kp-icon">&#128247;</div><div class="kp-body"><div class="kp-label">The Craft</div><div class="kp-value">High-end cameras, premium glass</div></div></div>
-          <div class="kp"><div class="kp-icon">&#127916;</div><div class="kp-body"><div class="kp-label">The Films</div><div class="kp-value">Cinematic teasers &amp; full-length edits</div></div></div>
-          <div class="kp"><div class="kp-icon">&#128214;</div><div class="kp-body"><div class="kp-label">The Albums</div><div class="kp-value">Non-tearable, lightweight, waterproof</div></div></div>
-          <div class="kp"><div class="kp-icon">&#9829;</div><div class="kp-body"><div class="kp-label">The Promise</div><div class="kp-value">Every moment captured with heart</div></div></div>
-        </div>
-      </div>
-      <div class="about-text">
-        <span class="section-tag reveal">The Storyteller</span>
-        <h2 class="about-title reveal d1">Framed in Forever</h2>
-        <p class="about-body reveal d2">This is <strong>Srujith Bhaskar</strong>, founder of Srujith Bhaskar Studios. What began as a quiet fascination with light and moments has grown into a full studio built around one idea — that a wedding day deserves to be remembered exactly as it felt.</p>
-        <div class="about-quote reveal d2"><p>Every love story is different. Ours is simply to tell it beautifully.</p></div>
-        <p class="about-body reveal d3">From candid portraits to cinematic wedding films, every frame is shot, edited and delivered with the same promise — passion, heart and dedication, on every single project.</p>
-        <div class="about-grid reveal d3">
-          <div class="ag-cell"><div class="ag-n">4K</div><div class="ag-label">Cinematic Video</div></div>
-          <div class="ag-cell"><div class="ag-n">50</div><div class="ag-label">Sheet Albums</div></div>
-          <div class="ag-cell"><div class="ag-n">2-5</div><div class="ag-label">Reels Included</div></div>
-          <div class="ag-cell"><div class="ag-n">100%</div><div class="ag-label">Heartfelt Craft</div></div>
-        </div>
-        <a href="#enquiry" class="about-cta reveal d4">Begin Your Story →</a>
-      </div>
-    </div>
-  </section>
 
   <section class="why">
     <div class="why-inner">
@@ -418,6 +428,26 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
     </div>
   </section>
 
+  <section class="live-section" id="live">
+    <div class="live-inner">
+      <div class="live-head">
+        <div>
+          <span class="section-tag">Live</span>
+          <h2 class="live-title">Watch Us Live</h2>
+        </div>
+        <div class="live-pill" id="livePill"><span class="live-dot"></span><span id="liveText">Checking…</span></div>
+      </div>
+      <div class="ls-wrap">
+        <div class="ls-ph" id="lsOffline">
+          <h3>Awaiting the next broadcast</h3>
+          <p>When we go live, the stream appears here automatically.</p>
+          <a id="lsChannelLink" href="https://www.youtube.com/" target="_blank" rel="noopener">Visit Our Channel</a>
+        </div>
+        <iframe id="lsPlayer" style="display:none" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Live stream"></iframe>
+      </div>
+    </div>
+  </section>
+  
   <section class="snapshot" id="gallery">
     <div class="snapshot-header">
       <span class="section-tag reveal">From Our Lens</span>
@@ -449,6 +479,14 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
     </div>
   </section>
 
+  <!-- TESTIMONIALS (hidden until admin adds at least one) -->
+  <section class="testimonials hidden" id="testimonials">
+    <span class="section-tag">Kind Words</span>
+    <h2 class="testimonials-title">Words from Our Couples</h2>
+    <div class="section-rule"></div>
+    <p class="testimonials-sub">Stories from the people we've had the honour of capturing</p>
+    <div class="t-grid" id="testimonialGrid"></div>
+  </section>
   <section class="journey" id="quotation" style="background:var(--white);">
     <span class="section-tag reveal">Your Package</span>
     <h2 class="journey-title reveal d1">Build Your Own<br>Wedding Quote</h2>
@@ -509,7 +547,7 @@ footer{position:relative;background:#0B2431;padding:70px 80px 0;}
       <div>
         <p class="footer-col-title">Navigate</p>
         <ul class="footer-links">
-          <li><a href="#about">About Us</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#films">Films</a></li>
           <li><a href="#enquiry">Contact</a></li>
@@ -684,7 +722,7 @@ async function loadPortfolioFromJSONBin(){
     });
     if(record.snapshot && record.snapshot.length>0) renderSnapshotScroll(record.snapshot);
     if(record.videos && record.videos.length>0) renderVideoGrid(record.videos);
-    if(record.hero && record.hero.url) applyHeroBackground(record.hero);
+    if(record.hero && record.hero.url) applyHeroBackground(record.hero);     if(Array.isArray(record.testimonials)) renderTestimonials(record.testimonials);
     if(record.covers && typeof record.covers==='object'){
       Object.keys(record.covers).forEach(cat=>{
         const thumb=document.querySelector(`.pthumb[data-panel="${cat}"]`);
@@ -800,6 +838,63 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.key==='Escape')lb.classList.remove('open');
   });
 });
+// ── TESTIMONIALS ──
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderTestimonials(list){
+  const sec=document.getElementById('testimonials'),grid=document.getElementById('testimonialGrid');
+  if(!sec||!grid||!list||!list.length) return;
+  grid.innerHTML=list.map(t=>{
+    const r=Math.max(1,Math.min(5,parseInt(t.rating)||5));
+    return '<div class="t-card"><div class="t-stars">'+'★'.repeat(r)+'☆'.repeat(5-r)+'</div>'
+      +'<p class="t-quote">'+esc(t.text)+'</p>'
+      +'<div class="t-author"><div class="t-avatar">'+esc((t.name||'?').charAt(0).toUpperCase())+'</div>'
+      +'<div><div class="t-name">'+esc(t.name)+'</div><div class="t-date">'+esc(t.event)+'</div></div></div></div>';
+  }).join('');
+  sec.classList.remove('hidden');
+}
+
+// ── YOUTUBE LIVE ──
+/* ▼▼▼ FILL THESE LATER ▼▼▼ */
+const YT_API_KEY    = '';   // your YouTube Data API v3 key
+const YT_CHANNEL_ID = '';   // channel ID starting with UC...  (preferred)
+const YT_HANDLE     = '';   // OR the handle without @, e.g. 'srujithbhaskarstudios' (used only if CHANNEL_ID is empty)
+const YT_CHANNEL_URL= '';   // full channel link, for the "Visit Our Channel" button
+/* ▲▲▲ FILL THESE LATER ▲▲▲ */
+let ytCid = YT_CHANNEL_ID || null;
+async function ytGetCid(){
+  if(ytCid) return ytCid;
+  if(!YT_HANDLE) return null;
+  const r=await fetch('https://www.googleapis.com/youtube/v3/channels?part=id&forHandle='+YT_HANDLE+'&key='+YT_API_KEY);
+  const d=await r.json();
+  if(d.items&&d.items.length){ytCid=d.items[0].id;return ytCid;}
+  return null;
+}
+async function checkLive(){
+  if(YT_CHANNEL_URL) document.getElementById('lsChannelLink').href=YT_CHANNEL_URL;
+  if(!YT_API_KEY){showOffline();return;}
+  try{
+    const cid=await ytGetCid(); if(!cid){showOffline();return;}
+    const r=await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId='+cid+'&eventType=live&type=video&key='+YT_API_KEY);
+    const d=await r.json();
+    if(d.items&&d.items.length) showLive(d.items[0].id.videoId); else showOffline();
+  }catch(e){showOffline();}
+}
+function showLive(id){
+  document.getElementById('livePill').className='live-pill is-live';
+  document.getElementById('liveText').textContent='Live Now';
+  document.getElementById('lsOffline').style.display='none';
+  const f=document.getElementById('lsPlayer'); f.style.display='block';
+  const src='https://www.youtube.com/embed/'+id+'?autoplay=1&mute=1&rel=0&modestbranding=1';
+  if(f.src!==src) f.src=src;
+}
+function showOffline(){
+  document.getElementById('livePill').className='live-pill';
+  document.getElementById('liveText').textContent='Offline';
+  document.getElementById('lsOffline').style.display='flex';
+  const f=document.getElementById('lsPlayer'); f.style.display='none'; f.src='';
+}
+checkLive();
+setInterval(()=>{if(!document.hidden)checkLive();},5*60*1000);
 </script>
 </body>
 </html>
