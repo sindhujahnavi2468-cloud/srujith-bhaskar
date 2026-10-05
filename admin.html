@@ -929,6 +929,72 @@ function updateStats() {
 /* ══════════════════════════════════════
    HELPERS
 ══════════════════════════════════════ */
+/* ══════════ TESTIMONIALS MANAGER ══════════ */
+let editingT = -1;
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function renderTestimonialsAdmin() {
+  const list = document.getElementById('testimonialList'); if (!list) return;
+  const items = galleryData.testimonials || [];
+  if (!items.length) { list.innerHTML = '<div class="empty-cat">No testimonials yet.<br>Add your first one above.</div>'; return; }
+  list.innerHTML = items.map((t, i) => `
+    <div class="t-item">
+      <div>
+        <div class="t-item-name">${esc(t.name)} <span style="color:var(--gold)">${'★'.repeat(parseInt(t.rating)||5)}</span></div>
+        <div class="t-item-meta">${esc(t.event)}</div>
+        <div class="t-item-text">${esc(t.text)}</div>
+      </div>
+      <div class="t-item-actions">
+        <button class="modal-cancel" onclick="editTestimonial(${i})">Edit</button>
+        <button class="video-del-btn" onclick="confirmDeleteTestimonial(${i})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function saveTestimonial() {
+  const name = document.getElementById('tName').value.trim();
+  const event = document.getElementById('tEvent').value.trim();
+  const rating = document.getElementById('tRating').value;
+  const text = document.getElementById('tText').value.trim();
+  if (!name || !text) { toast('Name and testimonial text are required', 'error'); return; }
+  if (!galleryData.testimonials) galleryData.testimonials = [];
+  const entry = { name, event, rating, text };
+  if (editingT >= 0) { galleryData.testimonials[editingT] = entry; toast('Testimonial updated', 'success'); }
+  else { galleryData.testimonials.unshift(entry); toast('Testimonial added', 'success'); }
+  resetTestimonialForm(); renderTestimonialsAdmin(); markUnsaved();
+}
+
+function editTestimonial(i) {
+  const t = galleryData.testimonials[i]; if (!t) return;
+  editingT = i;
+  document.getElementById('tName').value = t.name || '';
+  document.getElementById('tEvent').value = t.event || '';
+  document.getElementById('tRating').value = t.rating || '5';
+  document.getElementById('tText').value = t.text || '';
+  document.getElementById('tSaveBtn').textContent = 'Update Testimonial';
+  document.getElementById('tCancelBtn').style.display = 'inline-block';
+  document.getElementById('tName').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetTestimonialForm() {
+  editingT = -1;
+  ['tName','tEvent','tText'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('tRating').value = '5';
+  document.getElementById('tSaveBtn').textContent = 'Add Testimonial';
+  document.getElementById('tCancelBtn').style.display = 'none';
+}
+
+function confirmDeleteTestimonial(i) {
+  const t = galleryData.testimonials[i];
+  document.getElementById('confirmModalBody').textContent = `Remove the testimonial from "${t?.name || 'this client'}"?`;
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModalYes').textContent = 'Yes, Remove';
+  document.getElementById('confirmModalYes').onclick = () => {
+    galleryData.testimonials.splice(i, 1);
+    closeModal(); resetTestimonialForm(); renderTestimonialsAdmin(); markUnsaved();
+    toast('Testimonial removed', 'info');
+  };
+}
 function markUnsaved() {
   hasUnsavedChanges = true;
   document.getElementById('saveBanner').classList.add('visible');
